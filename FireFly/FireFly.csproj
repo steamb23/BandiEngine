@@ -71,7 +71,11 @@
     <Compile Include="Exception\RequiredTypeException.cs" />
     <Compile Include="Interop.cs" />
     <Compile Include="Module.cs" />
-    <Compile Include="Modules\FireFlyGraphicsBaseModule.cs" />
+    <Compile Include="Modules\DefaultGraphics2DModule.cs" />
+    <Compile Include="Modules\DefaultGraphics3DModule.cs" />
+    <Compile Include="Modules\DefaultGraphicsBaseModule.cs" />
+    <Compile Include="Modules\Graphics2DModule.cs" />
+    <Compile Include="Modules\Graphics3DModule.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

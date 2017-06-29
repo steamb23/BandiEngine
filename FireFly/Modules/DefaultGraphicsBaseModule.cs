@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FireFly.Modules
 {
-    public class FireFlyGraphicsBaseModule : GraphicsBaseModule
+    public class DefaultGraphicsBaseModule : GraphicsBaseModule
     {
         Graphics.GraphicsDevice device;
 
-        public FireFlyGraphicsBaseModule(IntPtr windowsHandle)
+        public DefaultGraphicsBaseModule(IntPtr windowsHandle)
         {
             device = new Graphics.GraphicsDevice(windowsHandle);
         }

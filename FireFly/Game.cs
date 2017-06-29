@@ -35,7 +35,7 @@ namespace FireFly
 
         protected virtual void Initialize()
         {
-            Modules.Add(graphicModule = new Modules.FireFlyGraphicsBaseModule(WindowHandle));
+            Modules.Add(graphicModule = new Modules.DefaultGraphicsBaseModule(WindowHandle));
         }
 
         protected virtual void Update()
