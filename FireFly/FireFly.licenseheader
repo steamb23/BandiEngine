@@ -1,0 +1,13 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+// Copyright (c) 2017 SteamB23
+extensions: .aspx .ascx
+<%-- 
+Copyright (c) 2017 SteamB23
+--%>
+extensions: .vb
+'Copyright (c) 2017 SteamB23
+extensions:  .xml .config .xsd
+<!--
+Copyright (c) 2017 SteamB23
+-->
