@@ -82,7 +82,6 @@
     <Compile Include="Graphics\ClearOptions.cs" />
     <Compile Include="Graphics\DisplayMode.cs" />
     <Compile Include="Graphics\DisplayProperties.cs" />
-    <Compile Include="Graphics\GraphicsResource.cs" />
     <Compile Include="Graphics\GraphicsAdapter.cs" />
     <Compile Include="Graphics\GraphicsDevice.cs" />
     <Compile Include="Graphics\GraphicsOutput.cs" />
