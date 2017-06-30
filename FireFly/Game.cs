@@ -11,7 +11,7 @@ namespace FireFly
     public abstract class Game
     {
         RenderForm renderForm = new RenderForm("FireFly Engine");
-        Modules.GraphicsBaseModule graphicModule;
+        Graphics.Device graphicDevice;
 
         public GameTime GameTime { get; } = new GameTime();
         public ModuleContainer Modules { get; } = new ModuleContainer();
@@ -35,7 +35,7 @@ namespace FireFly
 
         protected virtual void Initialize()
         {
-            Modules.Add(graphicModule = new Modules.DefaultGraphicsBaseModule(WindowHandle));
+            Modules.Add(graphicDevice = Graphics.Device.CreateDefault());
         }
 
         protected virtual void Update()
@@ -45,7 +45,7 @@ namespace FireFly
 
         protected virtual void Draw()
         {
-            graphicModule.Present();
+            graphicDevice.Present();
         }
     }
 }

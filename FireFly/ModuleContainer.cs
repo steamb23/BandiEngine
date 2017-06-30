@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace FireFly
 {
-    public class ModuleContainer : IEnumerable<Module>
+    public class ModuleContainer : IEnumerable<IModule>
     {
-        Dictionary<Type, Module> modules = new Dictionary<Type, Module>();
+        Dictionary<Type, IModule> modules = new Dictionary<Type, IModule>();
 
         int Count => modules.Count;
 
-        public void Add<T>(T module) where T : Module
+        public void Add<T>(T module) where T : class, IModule
         {
             this.Add(typeof(T), module);
-            module.Initialize();
+            module.Load();
         }
 
-        public bool Remove<T>() where T : Module
+        public bool Remove<T>() where T : class, IModule
         {
             return this.Remove(typeof(T));
         }
 
-        public bool Contains<T>() where T : Module
+        public bool Contains<T>() where T : class, IModule
         {
             return this.Contains(typeof(T));
         }
 
-        public T Find<T>() where T : Module
+        public T Find<T>() where T : class, IModule
         {
             return Find(typeof(T)) as T;
         }
@@ -41,7 +41,7 @@ namespace FireFly
             modules.Clear();
         }
 
-        internal void Add(Type type, Module module)
+        internal void Add(Type type, IModule module)
         {
             // 종속성 검사
             var requiredType = GetRequiredType(type);
@@ -66,7 +66,7 @@ namespace FireFly
             return modules.ContainsKey(type);
         }
 
-        internal Module Find(Type type)
+        internal IModule Find(Type type)
         {
             return modules[type];
         }
@@ -104,7 +104,7 @@ namespace FireFly
             return dependentType.ToArray();
         }
 
-        public IEnumerator<Module> GetEnumerator()
+        public IEnumerator<IModule> GetEnumerator()
         {
             return modules.Values.GetEnumerator();
         }

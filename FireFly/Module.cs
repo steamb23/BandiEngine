@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace FireFly
 {
-    public abstract class Module
+    public interface IModule
     {
         /// <summary>
         /// 모듈이 컨테이너에 적재되면 호출됩니다.
         /// </summary>
-        public virtual void Initialize()
-        {
-
-        }
+        void Load();
     }
 }
