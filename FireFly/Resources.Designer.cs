@@ -70,6 +70,15 @@ namespace FireFly {
         }
         
         /// <summary>
+        ///   device는 Device2D에서 파생된 형식이 아니어야합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string Device2D_constructor_ArgumentException {
+            get {
+                return ResourceManager.GetString("Device2D_constructor_ArgumentException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   {0}은 다음과 같은 형식에 의존하고 있습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string RequiredTypeException_Message {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FireFly.Graphics.DirectX
 {
-    public class Device : Graphics.Device, IModule
+    public sealed class Device : Graphics.Device, IModule
     {
         public override void Clear()
         {

@@ -120,6 +120,9 @@
   <data name="DependentTypeExeption_Message" xml:space="preserve">
     <value>다음과 같은 형식이 {0}에 의존하고 있습니다.</value>
   </data>
+  <data name="Device2D_constructor_ArgumentException" xml:space="preserve">
+    <value>device는 Device2D에서 파생된 형식이 아니어야합니다.</value>
+  </data>
   <data name="RequiredTypeException_Message" xml:space="preserve">
     <value>{0}은 다음과 같은 형식에 의존하고 있습니다.</value>
   </data>
