@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FireFly.licenseheader" />
+    <None Include="FireFly.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

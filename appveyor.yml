@@ -1,0 +1,47 @@
+version: 0.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- cmd: nuget restore
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  include_nuget_references: true
+  verbosity: minimal
+after_build:
+- cmd: >-
+    7z a FireFly.zip %APPVEYOR_BUILD_FOLDER%\FireFly\bin\%CONFIGURATION%\FireFly.dll
+
+    7z a FireFly.zip %APPVEYOR_BUILD_FOLDER%\FireFly\bin\%CONFIGURATION%\FireFly.xml
+artifacts:
+- path: FireFly\bin\$(configuration)\FireFly.dll
+  name: FireFly
+- path: FireFly\bin\$(configuration)\FireFly.xml
+  name: FireFly
+- path: FireFly.zip
+  name: FireFly.zip
+deploy:
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  release: FireFly v$(appveyor_build_version)
+  auth_token:
+    secure: ywvj6v8RbrXSFRlkwpoxLg//t0/lTYZSInOT8A3YOySEJ0sS1hv3UrkksY4xJyBu
+  artifact: FireFly
+  draft: true
+  prerelease: false
+  on:
+    branch: release
+- provider: NuGet
+  api_key:
+    secure: 3huCPS4uPHG8GMWkjicCs74aLRANlvHDB5OTl1A6KyhexBQogvJNeooS3po76nCV
+  on:
+    branch: release

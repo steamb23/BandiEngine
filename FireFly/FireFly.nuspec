@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <!-- Required elements-->
+    <id>FireFly</id>
+    <version>$version$</version>
+    <description>FireFly는 각 요소가 모듈화 되어 구성요소를 커스터마이징 할 수 있는 엔진입니다.</description>
+    <authors>SteamB23</authors>
+
+    <!-- Optional elements -->
+    <licenseUrl>https://github.com/steamb23/FireFly/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/steamb23/FireFly</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <releaseNotes>Test Release</releaseNotes>
+    <copyright>Copyright (c) 2017 SteamB23</copyright>
+    <tags>GameEngine</tags>
+    <!-- ... -->
+  </metadata>
+  <!-- Optional 'files' node -->
+  <!-- 
+  <files>
+    <file src="..\FireFly\bin\Release\FireFly.dll" target="lib" />
+    <file src="..\FireFly\bin\Release\FireFly.xml" target="lib" />
+  </files>
+  Auto file include :)
+   -->
+</package>
