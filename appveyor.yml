@@ -1,4 +1,8 @@
-version: 0.0.1.{build}
+version: $(version).{build}
+environment:
+  version: 0.0.2
+  state: -alpha
+  public_version: $(version)$(state)
 pull_requests:
   do_not_increment_build_number: true
 image: Visual Studio 2017
@@ -9,7 +13,7 @@ assembly_info:
   file: '**\AssemblyInfo.*'
   assembly_version: '{version}'
   assembly_file_version: '{version}'
-  assembly_informational_version: '0.0.1-alpha'
+  assembly_informational_version: $(public_version)
 before_build:
 - cmd: nuget restore
 build:
@@ -31,8 +35,8 @@ artifacts:
   name: BandiEngine.zip
 deploy:
 - provider: GitHub
-  tag: v$(appveyor_build_version)
-  release: BandiEngine v$(appveyor_build_version)
+  tag: v$(public_version)
+  release: BandiEngine v$(public_version)
   auth_token:
     secure: ywvj6v8RbrXSFRlkwpoxLg//t0/lTYZSInOT8A3YOySEJ0sS1hv3UrkksY4xJyBu
   artifact: BandiEngine
