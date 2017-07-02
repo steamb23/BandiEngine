@@ -54,3 +54,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("0.0.0.0")]
 // [assembly: AssemblyFileVersion("1.0.0.0")]
 // 어셈블리 버전은 자동으로 관리됨.
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0.0")]
