@@ -88,8 +88,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FireFly.licenseheader" />
-    <None Include="FireFly.nuspec" />
+    <None Include="BandiEngine.licenseheader" />
+    <None Include="BandiEngine.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
