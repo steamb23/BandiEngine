@@ -19,23 +19,23 @@ build:
   verbosity: minimal
 after_build:
 - cmd: >-
-    7z a FireFly.zip %APPVEYOR_BUILD_FOLDER%\FireFly\bin\%CONFIGURATION%\FireFly.dll
+    7z a BandiEngine.zip %APPVEYOR_BUILD_FOLDER%\BandiEngine\bin\%CONFIGURATION%\BandiEngine.dll
 
-    7z a FireFly.zip %APPVEYOR_BUILD_FOLDER%\FireFly\bin\%CONFIGURATION%\FireFly.xml
+    7z a BandiEngine.zip %APPVEYOR_BUILD_FOLDER%\BandiEngine\bin\%CONFIGURATION%\BandiEngine.xml
 artifacts:
-- path: FireFly\bin\$(configuration)\FireFly.dll
-  name: FireFly
-- path: FireFly\bin\$(configuration)\FireFly.xml
-  name: FireFly
-- path: FireFly.zip
-  name: FireFly.zip
+- path: BandiEngine\bin\$(configuration)\BandiEngine.dll
+  name: BandiEngine
+- path: BandiEngine\bin\$(configuration)\BandiEngine.xml
+  name: BandiEngine
+- path: BandiEngine.zip
+  name: BandiEngine.zip
 deploy:
 - provider: GitHub
   tag: v$(appveyor_build_version)
-  release: FireFly v$(appveyor_build_version)
+  release: BandiEngine v$(appveyor_build_version)
   auth_token:
     secure: ywvj6v8RbrXSFRlkwpoxLg//t0/lTYZSInOT8A3YOySEJ0sS1hv3UrkksY4xJyBu
-  artifact: FireFly
+  artifact: BandiEngine
   draft: true
   prerelease: false
   on:

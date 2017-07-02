@@ -25,7 +25,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly
+namespace BandiEngine
 {
     public class ModuleContainer : IEnumerable<IModule>
     {

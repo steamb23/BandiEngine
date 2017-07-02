@@ -20,15 +20,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly
+namespace BandiEngine.Graphics
 {
-    internal static class Interop
+    /// <summary>
+    /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
+    /// </summary>
+    public abstract class Device : IModule
     {
-        [DllImport("user32.dll")]
-        internal static extern bool GetClientRect(IntPtr hWnd, out SharpDX.Rectangle lpRect);
+        public static Device CreateDefault()
+        {
+            // DirectX 기반이 기본 계획
+            return new DirectX.Device();
+        }
+
+        public virtual void Load()
+        {
+            // Empty method
+        }
+
+        public abstract void Clear();
+        public abstract void Present();
     }
 }

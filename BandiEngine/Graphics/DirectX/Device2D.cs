@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly.Graphics.DirectX
+namespace BandiEngine.Graphics.DirectX
 {
     public sealed class Device2D : Graphics.Device2D, IModule
     {

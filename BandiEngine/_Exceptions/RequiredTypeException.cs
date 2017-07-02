@@ -23,18 +23,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly.Graphics.DirectX
+namespace BandiEngine
 {
-    public sealed class Device : Graphics.Device, IModule
+    public class RequiredTypeException : Exception
     {
-        public override void Clear()
+        public Type[] RequiredTypes { get; }
+        public Type TargetType { get; }
+        public RequiredTypeException(Type targetType, params Type[] requiredTypes)
         {
-            throw new NotImplementedException();
+            this.RequiredTypes = requiredTypes;
+            this.TargetType = targetType;
         }
 
-        public override void Present()
+        public override string Message
         {
-            throw new NotImplementedException();
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormat(Resources.RequiredTypeException_Message, TargetType);
+                foreach (var requiredType in RequiredTypes)
+                {
+                    sb.AppendLine();
+                    sb.Append(requiredType);
+                }
+                return sb.ToString();
+            }
         }
     }
 }

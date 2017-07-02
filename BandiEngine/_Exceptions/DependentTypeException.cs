@@ -22,48 +22,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Windows;
 
-namespace FireFly
+namespace BandiEngine
 {
-    public abstract class Game
+    public class DependentTypeException : Exception
     {
-        RenderForm renderForm = new RenderForm("FireFly Engine");
-        Graphics.Device graphicDevice;
-
-        public GameTime GameTime { get; } = new GameTime();
-        public ModuleContainer Modules { get; } = new ModuleContainer();
-
-        public IntPtr WindowHandle => renderForm.Handle;
-        public Game()
+        public Type[] DependentTypes { get; }
+        public Type TargetType { get; }
+        public DependentTypeException(Type targetType, params Type[] dependentTypes)
         {
+            this.DependentTypes = dependentTypes;
+            this.TargetType = targetType;
         }
-        
-        public void Run()
+
+        public override string Message
         {
-            Initialize();
-            GameTime.Start();
-            RenderLoop.Run(renderForm, () =>
+            get
             {
-                GameTime.Update();
-                Update();
-                Draw();
-            });
-        }
-
-        protected virtual void Initialize()
-        {
-            Modules.Add(graphicDevice = Graphics.Device.CreateDefault());
-        }
-
-        protected virtual void Update()
-        {
-
-        }
-
-        protected virtual void Draw()
-        {
-            graphicDevice.Present();
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormat(Resources.DependentTypeExeption_Message, TargetType);
+                foreach (var dependentType in DependentTypes)
+                {
+                    sb.AppendLine();
+                    sb.Append(dependentType);
+                }
+                return sb.ToString();
+            }
         }
     }
 }
