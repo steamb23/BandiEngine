@@ -20,34 +20,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly
+namespace BandiEngine
 {
-    public class RequiredTypeException : Exception
+    internal static class Interop
     {
-        public Type[] RequiredTypes { get; }
-        public Type TargetType { get; }
-        public RequiredTypeException(Type targetType, params Type[] requiredTypes)
-        {
-            this.RequiredTypes = requiredTypes;
-            this.TargetType = targetType;
-        }
-
-        public override string Message
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendFormat(Resources.RequiredTypeException_Message, TargetType);
-                foreach (var requiredType in RequiredTypes)
-                {
-                    sb.AppendLine();
-                    sb.Append(requiredType);
-                }
-                return sb.ToString();
-            }
-        }
+        [DllImport("user32.dll")]
+        internal static extern bool GetClientRect(IntPtr hWnd, out SharpDX.Rectangle lpRect);
     }
 }

@@ -23,32 +23,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly.Graphics
+namespace BandiEngine
 {
-    /// <summary>
-    /// 2D 관련 기능을 제공합니다.
-    /// </summary>
-    public abstract class Device2D : Device, IModule
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    public sealed class RequiredTypeAttribute : Attribute
     {
-        Device device;
-
-        public Device Device => this.device;
-
-        public Device2D(Device device)
+        public Type Type { get; }
+        public RequiredTypeAttribute(Type type)
         {
-            if (device is Device2D)
-                throw new ArgumentException(Resources.Device2D_constructor_ArgumentException, "device");
-            this.device = device;
-        }
-
-        public override void Clear()
-        {
-            this.device.Clear();
-        }
-
-        public override void Present()
-        {
-            this.device.Present();
+            this.Type = type;
         }
     }
 }

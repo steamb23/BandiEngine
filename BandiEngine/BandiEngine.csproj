@@ -7,8 +7,8 @@
     <ProjectGuid>{7A18F1F0-1173-4006-935D-9143668BB794}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FireFly</RootNamespace>
-    <AssemblyName>FireFly</AssemblyName>
+    <RootNamespace>BandiEngine</RootNamespace>
+    <AssemblyName>BandiEngine</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\FireFly.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\BandiEngine.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
@@ -88,8 +88,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FireFly.licenseheader" />
-    <None Include="FireFly.nuspec" />
+    <None Include="BandiEngine.licenseheader" />
+    <None Include="BandiEngine.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

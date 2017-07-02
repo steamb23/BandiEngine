@@ -23,25 +23,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly.Graphics
+namespace BandiEngine
 {
-    /// <summary>
-    /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
-    /// </summary>
-    public abstract class Device : IModule
+    public interface IModule
     {
-        public static Device CreateDefault()
-        {
-            // DirectX 기반이 기본 계획
-            return new DirectX.Device();
-        }
-
-        public virtual void Load()
-        {
-            // Empty method
-        }
-
-        public abstract void Clear();
-        public abstract void Present();
+        /// <summary>
+        /// 모듈이 컨테이너에 적재되면 호출됩니다.
+        /// </summary>
+        void Load();
     }
 }

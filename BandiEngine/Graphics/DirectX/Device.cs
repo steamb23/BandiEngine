@@ -23,15 +23,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FireFly
+namespace BandiEngine.Graphics.DirectX
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
-    public sealed class RequiredTypeAttribute : Attribute
+    public sealed class Device : Graphics.Device, IModule
     {
-        public Type Type { get; }
-        public RequiredTypeAttribute(Type type)
+        public override void Clear()
         {
-            this.Type = type;
+            throw new NotImplementedException();
+        }
+
+        public override void Present()
+        {
+            throw new NotImplementedException();
         }
     }
 }
