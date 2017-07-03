@@ -27,9 +27,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("BandiEngine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("SteamB23")]
 [assembly: AssemblyProduct("BandiEngine")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright (c) 2017 SteamB23")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
