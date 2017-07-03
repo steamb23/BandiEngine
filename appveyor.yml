@@ -39,9 +39,8 @@ deploy:
   release: BandiEngine v$(public_version)
   auth_token:
     secure: ywvj6v8RbrXSFRlkwpoxLg//t0/lTYZSInOT8A3YOySEJ0sS1hv3UrkksY4xJyBu
-  artifact: BandiEngine
-  draft: true
-  prerelease: false
+  artifact: BandiEngine.zip
+  prerelease: true
   on:
     branch: master
 - provider: NuGet
