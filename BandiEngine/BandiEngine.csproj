@@ -72,9 +72,10 @@
     <Compile Include="Graphics\DirectX\Adapter.cs" />
     <Compile Include="Graphics\DirectX\Device2D.cs" />
     <Compile Include="Graphics\DisplayProperties.cs" />
-    <Compile Include="Platform.cs" />
-    <Compile Include="_Exceptions\DependentTypeException.cs" />
-    <Compile Include="_Exceptions\RequiredTypeException.cs" />
+    <Compile Include="Platforms\Platform.cs" />
+    <Compile Include="Platforms\WindowsPlatform.cs" />
+    <Compile Include="Exceptions\DependentTypeException.cs" />
+    <Compile Include="Exceptions\RequiredTypeException.cs" />
     <Compile Include="Graphics\DirectX\Device.cs" />
     <Compile Include="Graphics\Device.cs" />
     <Compile Include="Interop.cs" />

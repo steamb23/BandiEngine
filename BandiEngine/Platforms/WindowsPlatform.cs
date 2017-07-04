@@ -23,14 +23,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SharpDX.Windows;
+
 namespace BandiEngine
 {
-    public abstract class Platform : IModule
+    public sealed class WindowsPlatform : Platform, IModule
     {
-        public abstract string Title { get; set; }
-        public virtual void Load()
+        RenderForm renderForm;
+
+        public WindowsPlatform(Game game) : base(game)
         {
-            // Empty method
+            renderForm = new RenderForm();
+        }
+
+        public WindowsPlatform(Game game, string title) : base(game, title)
+        {
+            renderForm = new RenderForm();
+        }
+
+        public sealed override string Title { get => renderForm.Text; set => renderForm.Text = value; }
+
+        public sealed override void Run()
+        {
+            Game.Initialize();
+            Game.GameTime.Start();
+            RenderLoop.Run(renderForm, () =>
+            {
+                Game.GameTime.Update();
+                Game.Update();
+                Game.Draw();
+            });
         }
     }
 }

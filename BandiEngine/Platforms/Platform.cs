@@ -22,48 +22,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpDX.Windows;
 
 namespace BandiEngine
 {
-    public abstract class Game
+    public abstract class Platform : IModule
     {
-        RenderForm renderForm = new RenderForm("Bandi Engine");
-        Graphics.Device graphicDevice;
-
-        public GameTime GameTime { get; } = new GameTime();
-        public ModuleContainer Modules { get; } = new ModuleContainer();
-
-        public IntPtr WindowHandle => renderForm.Handle;
-        public Game()
+        public Platform(Game game)
         {
+            this.Game = game;
         }
-        
-        public void Run()
+        public Platform(Game game, string title) : this(game)
         {
-            Initialize();
-            GameTime.Start();
-            RenderLoop.Run(renderForm, () =>
-            {
-                GameTime.Update();
-                Update();
-                Draw();
-            });
+            this.Title = title;
         }
 
-        public virtual void Initialize()
-        {
-            Modules.Add(graphicDevice = Graphics.Device.CreateDefault());
-        }
+        public Game Game { get; }
 
-        public virtual void Update()
-        {
+        public abstract string Title { get; set; }
 
-        }
+        public abstract void Run();
 
-        public virtual void Draw()
+        public virtual void Load()
         {
-            graphicDevice.Present();
+            // Empty method
         }
     }
 }

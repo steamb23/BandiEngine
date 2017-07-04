@@ -80,15 +80,15 @@ namespace BandiEngine
         /// 보정 값을 가져옵니다. <seealso cref="TimeRatioD"/>의 단정밀도 값입니다.
         /// </summary>
         public float TimeRatio => (float)TimeRatioD;
-        internal void Start()
+        public void Start()
         {
             totalTimer.Start();
         }
-        internal void Pause()
+        public void Pause()
         {
             totalTimer.Stop();
         }
-        internal void Stop()
+        public void Stop()
         {
             totalTimer.Reset();
         }
