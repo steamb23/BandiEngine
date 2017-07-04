@@ -69,7 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphics\Device2D.cs" />
+    <Compile Include="Graphics\DirectX\Adapter.cs" />
     <Compile Include="Graphics\DirectX\Device2D.cs" />
+    <Compile Include="Graphics\DisplayProperties.cs" />
     <Compile Include="_Exceptions\DependentTypeException.cs" />
     <Compile Include="_Exceptions\RequiredTypeException.cs" />
     <Compile Include="Graphics\DirectX\Device.cs" />

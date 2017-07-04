@@ -23,21 +23,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BandiEngine.Graphics
+namespace BandiEngine.Graphics.DirectX
 {
-    /// <summary>
-    /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
-    /// </summary>
-    public abstract class Device : IModule
+    public class Adapter
     {
-        public DisplayProperties DisplayProperties { get; set; }
-
-        public virtual void Load()
-        {
-            // Empty method
-        }
-
-        public abstract void Clear();
-        public abstract void Present();
     }
 }

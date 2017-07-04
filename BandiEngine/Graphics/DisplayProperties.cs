@@ -25,19 +25,38 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Graphics
 {
-    /// <summary>
-    /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
-    /// </summary>
-    public abstract class Device : IModule
+    public struct DisplayProperties
     {
-        public DisplayProperties DisplayProperties { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public BufferMode Buffer { get; set; }
+        public MultiSampleMode MultiSample { get; set; }
+        public bool IsFullscreen { get; set; }
+        public VSyncMode VSync { get; set; }
+    }
 
-        public virtual void Load()
-        {
-            // Empty method
-        }
+    public enum BufferMode : int
+    {
+        None = 0,
+        SingleBuffer = 0,
+        DoubleBuffer = 1,
+        TripleBuffer = 2
+    }
 
-        public abstract void Clear();
-        public abstract void Present();
+    public enum MultiSampleMode : int
+    {
+        None = 1,
+        _2x = 2,
+        _4x = 4,
+        _8x = 8,
+        _16x = 16
+    }
+
+    public enum VSyncMode : int
+    {
+        None = 0,
+        EveryBlank = 1,
+        SecoundsBlank = 2,
+        FourthBlank = 4
     }
 }
