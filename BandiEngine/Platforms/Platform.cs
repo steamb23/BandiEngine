@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace BandiEngine
 {
-    public abstract class Platform : IModule
+    public abstract class Platform
     {
         public Platform(Game game)
         {

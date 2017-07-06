@@ -28,7 +28,7 @@ namespace BandiEngine.Graphics
     /// <summary>
     /// 2D 관련 기능을 제공합니다.
     /// </summary>
-    public abstract class Device2D : Device, IModule
+    public abstract class Device2D : Device
     {
         Device device;
 

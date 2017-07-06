@@ -27,29 +27,28 @@ using System.Threading.Tasks;
 
 namespace BandiEngine
 {
-    public class ModuleContainer : IEnumerable<IModule>
+    public class ModuleContainer : IEnumerable<object>
     {
-        Dictionary<Type, IModule> modules = new Dictionary<Type, IModule>();
+        Dictionary<Type, object> modules = new Dictionary<Type, object>();
 
         int Count => modules.Count;
 
-        public void Add<T>(T module) where T : class, IModule
+        public void Add<T>(T module) where T : class
         {
             this.Add(typeof(T), module);
-            module.Load();
         }
 
-        public bool Remove<T>() where T : class, IModule
+        public bool Remove<T>() where T : class
         {
             return this.Remove(typeof(T));
         }
 
-        public bool Contains<T>() where T : class, IModule
+        public bool Contains<T>() where T : class
         {
             return this.Contains(typeof(T));
         }
 
-        public T Find<T>() where T : class, IModule
+        public T Find<T>() where T : class
         {
             return Find(typeof(T)) as T;
         }
@@ -59,7 +58,7 @@ namespace BandiEngine
             modules.Clear();
         }
 
-        internal void Add(Type type, IModule module)
+        internal void Add(Type type, object module)
         {
             modules.Add(type, module);
         }
@@ -74,11 +73,11 @@ namespace BandiEngine
             return modules.ContainsKey(type);
         }
 
-        internal IModule Find(Type type)
+        internal object Find(Type type)
         {
             return modules[type];
         }
-        public IEnumerator<IModule> GetEnumerator()
+        public IEnumerator<object> GetEnumerator()
         {
             return modules.Values.GetEnumerator();
         }

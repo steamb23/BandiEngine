@@ -35,7 +35,7 @@ using static SharpDX.Utilities;
 
 namespace BandiEngine.Graphics.DirectX
 {
-    public sealed class Device : Graphics.Device, IModule, IDisposable
+    public sealed class Device : Graphics.Device, IDisposable
     {
         D3D11.Device d3dDevice;
         D3D11.DeviceContext d3dContext;

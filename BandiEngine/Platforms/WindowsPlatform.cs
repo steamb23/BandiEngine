@@ -27,7 +27,7 @@ using SharpDX.Windows;
 
 namespace BandiEngine
 {
-    public sealed class WindowsPlatform : Platform, IModule
+    public sealed class WindowsPlatform : Platform
     {
         RenderForm renderForm;
 

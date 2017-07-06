@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Graphics.DirectX
 {
-    public sealed class Device2D : Graphics.Device2D, IModule
+    public sealed class Device2D : Graphics.Device2D
     {
         Device device;
 

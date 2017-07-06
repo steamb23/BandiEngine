@@ -28,7 +28,7 @@ namespace BandiEngine.Graphics
     /// <summary>
     /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
     /// </summary>
-    public abstract class Device : IModule
+    public abstract class Device
     {
         public DisplayProperties DisplayProperties { get; set; }
 

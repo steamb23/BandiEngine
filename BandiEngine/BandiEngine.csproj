@@ -77,7 +77,6 @@
     <Compile Include="Graphics\DirectX\Device.cs" />
     <Compile Include="Graphics\Device.cs" />
     <Compile Include="Interop.cs" />
-    <Compile Include="Module.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
