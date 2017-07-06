@@ -36,7 +36,7 @@ using static SharpDX.Utilities;
 
 namespace BandiEngine.Graphics.DirectX
 {
-    public class Output : Graphics.Output
+    public sealed class Output : Graphics.Output
     {
         DXGI.Output dxgiOutput;
         public Output(DXGI.Output dxgiOutput)

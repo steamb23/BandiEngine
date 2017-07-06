@@ -28,7 +28,7 @@ namespace BandiEngine.Graphics
 {
     public abstract class Adapter
     {
-        public abstract AdapterDescription AdapterDescription { get; }
+        public abstract AdapterDescription Description { get; }
         public abstract ReadOnlyCollection<Output> Outputs { get; }
     }
 }

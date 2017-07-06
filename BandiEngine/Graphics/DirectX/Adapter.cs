@@ -36,7 +36,7 @@ using static SharpDX.Utilities;
 
 namespace BandiEngine.Graphics.DirectX
 {
-    public class Adapter : Graphics.Adapter
+    public sealed class Adapter : Graphics.Adapter
     {
         public static ReadOnlyCollection<Adapter> Adapters
         {
@@ -77,7 +77,7 @@ namespace BandiEngine.Graphics.DirectX
             this.dxgiAdapter = dxgiAdapter;
         }
 
-        public override Graphics.AdapterDescription AdapterDescription => DirectX.AdapterDescription.CreateFrom(dxgiAdapter.Description);
+        public override Graphics.AdapterDescription Description => DirectX.AdapterDescription.CreateFrom(dxgiAdapter.Description);
 
         public override ReadOnlyCollection<Graphics.Output> Outputs
         {
