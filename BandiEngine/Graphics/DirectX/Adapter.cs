@@ -55,11 +55,40 @@ namespace BandiEngine.Graphics.DirectX
             }
         }
 
+        public static Adapter GetAdapter(int index)
+        {
+            using (var dxgiFactory = new DXGI.Factory1())
+            {
+                return new Adapter(dxgiFactory.GetAdapter1(index));
+            }
+        }
+
         DXGI.Adapter1 dxgiAdapter;
+
         internal Adapter(DXGI.Adapter1 dxgiAdapter)
         {
             this.dxgiAdapter = dxgiAdapter;
         }
+
         public override Graphics.AdapterDescription AdapterDescription => DirectX.AdapterDescription.CreateFrom(dxgiAdapter.Description);
+
+        public override ReadOnlyCollection<Graphics.Output> Outputs
+        {
+            get
+            {
+                var dxgiOutputs = dxgiAdapter.Outputs;
+                var outputs = new Output[dxgiOutputs.Length];
+                for (int i = 0; i< outputs.Length; i++)
+                {
+                    var dxgiOutput = dxgiOutputs[i];
+                    outputs[i] = new Output(dxgiOutput);
+                }
+                return new ReadOnlyCollection<Graphics.Output>(outputs);
+            }
+        }
+        public Output GetOutput(int index)
+        {
+            return new Output(dxgiAdapter.GetOutput(index));
+        }
     }
 }

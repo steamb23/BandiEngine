@@ -24,11 +24,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BandiEngine.Graphics
+using SharpDX;
+using SharpDX.Windows;
+using D3D = SharpDX.Direct3D;
+using D3D11 = SharpDX.Direct3D11;
+using D2D1 = SharpDX.Direct2D1;
+using DWrite = SharpDX.DirectWrite;
+using DXGI = SharpDX.DXGI;
+
+using static SharpDX.Utilities;
+
+namespace BandiEngine.Graphics.DirectX
 {
-    public abstract class Adapter
+    public class Output : Graphics.Output
     {
-        public abstract AdapterDescription AdapterDescription { get; }
-        public abstract ReadOnlyCollection<Output> Outputs { get; }
+        DXGI.Output dxgiOutput;
+        public Output(DXGI.Output dxgiOutput)
+        {
+            this.dxgiOutput = dxgiOutput;
+        }
     }
 }

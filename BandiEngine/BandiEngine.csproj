@@ -74,6 +74,7 @@
     <Compile Include="Graphics\DirectX\Adapter.cs" />
     <Compile Include="Graphics\DirectX\AdapterDescription.cs" />
     <Compile Include="Graphics\DirectX\Device2D.cs" />
+    <Compile Include="Graphics\DirectX\Output.cs" />
     <Compile Include="Graphics\DisplayProperties.cs" />
     <Compile Include="Graphics\Output.cs" />
     <Compile Include="Platforms\Platform.cs" />
