@@ -43,7 +43,7 @@ namespace BandiEngine
 
         public sealed override string Title { get => renderForm.Text; set => renderForm.Text = value; }
 
-        public sealed override void Run()
+        public sealed override void RunLoop()
         {
             Game.Initialize();
             Game.GameTime.Start();

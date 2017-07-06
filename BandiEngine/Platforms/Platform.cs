@@ -40,7 +40,7 @@ namespace BandiEngine
 
         public abstract string Title { get; set; }
 
-        public abstract void Run();
+        public abstract void RunLoop();
 
         public virtual void Load()
         {
