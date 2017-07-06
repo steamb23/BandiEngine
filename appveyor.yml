@@ -1,6 +1,6 @@
 version: $(version).{build}
 environment:
-  version: 0.0.2
+  version: 0.0.3
   state: -alpha
   public_version: $(version)$(state)
 pull_requests:
