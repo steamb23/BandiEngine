@@ -62,6 +62,13 @@ namespace BandiEngine.Graphics.DirectX
                 return new Adapter(dxgiFactory.GetAdapter1(index));
             }
         }
+        public static int GetAdapterIndex()
+        {
+            using (var dxgiFactory = new DXGI.Factory1())
+            {
+                return dxgiFactory.GetAdapterCount1();
+            }
+        }
 
         DXGI.Adapter1 dxgiAdapter;
 
@@ -89,6 +96,11 @@ namespace BandiEngine.Graphics.DirectX
         public Output GetOutput(int index)
         {
             return new Output(dxgiAdapter.GetOutput(index));
+        }
+        
+        public int GetOutputCount()
+        {
+            return dxgiAdapter.GetOutputCount();
         }
     }
 }
