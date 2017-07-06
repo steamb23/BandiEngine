@@ -27,5 +27,6 @@ namespace BandiEngine.Graphics
 {
     public abstract class Output
     {
+        public abstract OutputDescription Description { get; }
     }
 }

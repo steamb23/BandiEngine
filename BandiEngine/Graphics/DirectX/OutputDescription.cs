@@ -19,31 +19,22 @@
 // SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SharpDX;
-using SharpDX.Windows;
-using D3D = SharpDX.Direct3D;
-using D3D11 = SharpDX.Direct3D11;
-using D2D1 = SharpDX.Direct2D1;
-using DWrite = SharpDX.DirectWrite;
-using DXGI = SharpDX.DXGI;
-
-using static SharpDX.Utilities;
-
 namespace BandiEngine.Graphics.DirectX
 {
-    public sealed class Output : Graphics.Output
+    internal static class OutputDescription
     {
-        DXGI.Output dxgiOutput;
-        public Output(DXGI.Output dxgiOutput)
+        internal static Graphics.OutputDescription CreateFrom(SharpDX.DXGI.OutputDescription dxgiOutputDesc)
         {
-            this.dxgiOutput = dxgiOutput;
+            return new Graphics.OutputDescription()
+            {
+                DesktopBounds = dxgiOutputDesc.DesktopBounds,
+                DeviceName = dxgiOutputDesc.DeviceName,
+                Rotation = (DisplayModeRotation)dxgiOutputDesc.Rotation
+            };
         }
-
-        public override Graphics.OutputDescription Description => OutputDescription.CreateFrom(dxgiOutput.Description);
     }
 }

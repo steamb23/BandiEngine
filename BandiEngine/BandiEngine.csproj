@@ -75,8 +75,11 @@
     <Compile Include="Graphics\DirectX\AdapterDescription.cs" />
     <Compile Include="Graphics\DirectX\Device2D.cs" />
     <Compile Include="Graphics\DirectX\Output.cs" />
+    <Compile Include="Graphics\DirectX\OutputDescription.cs" />
+    <Compile Include="Graphics\DisplayModeRotation.cs" />
     <Compile Include="Graphics\DisplayProperties.cs" />
     <Compile Include="Graphics\Output.cs" />
+    <Compile Include="Graphics\OutputDescription.cs" />
     <Compile Include="Platforms\Platform.cs" />
     <Compile Include="Platforms\WindowsPlatform.cs" />
     <Compile Include="Graphics\DirectX\Device.cs" />
