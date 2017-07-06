@@ -102,5 +102,9 @@ namespace BandiEngine.Graphics.DirectX
         {
             return dxgiAdapter.GetOutputCount();
         }
+
+        #region DirectX Instances
+        internal DXGI.Adapter1 DXGI_ADAPTER => dxgiAdapter;
+        #endregion
     }
 }
