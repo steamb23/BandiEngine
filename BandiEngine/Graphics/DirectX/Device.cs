@@ -28,7 +28,7 @@ using SharpDX.Windows;
 using D3D = SharpDX.Direct3D;
 using D3D11 = SharpDX.Direct3D11;
 using D2D1 = SharpDX.Direct2D1;
-using DW = SharpDX.DirectWrite;
+using DWrite = SharpDX.DirectWrite;
 using DXGI = SharpDX.DXGI;
 
 using static SharpDX.Utilities;

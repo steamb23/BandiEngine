@@ -19,47 +19,28 @@
 // SOFTWARE.
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SharpDX;
-using SharpDX.Windows;
-using D3D = SharpDX.Direct3D;
-using D3D11 = SharpDX.Direct3D11;
-using D2D1 = SharpDX.Direct2D1;
-using DWrite = SharpDX.DirectWrite;
-using DXGI = SharpDX.DXGI;
-
-using static SharpDX.Utilities;
-
 namespace BandiEngine.Graphics.DirectX
 {
-    public class Adapter : Graphics.Adapter
+    internal static class AdapterDescription
     {
-        public static ReadOnlyCollection<Adapter> Adapters
+        internal static Graphics.AdapterDescription CreateFrom(SharpDX.DXGI.AdapterDescription dxgiAdapterDesc)
         {
-            get
+            return new Graphics.AdapterDescription()
             {
-                using (var dxgiFactory = new DXGI.Factory1())
-                {
-                    var dxgiAdapters = dxgiFactory.Adapters1;
-                    var adapters = new Adapter[dxgiAdapters.Length];
-                    for (var i = 0; i < dxgiAdapters.Length; i++)
-                    {
-                        adapters[i] = new Adapter(dxgiAdapters[i]);
-                    }
-                    return new ReadOnlyCollection<Adapter>(adapters);
-                }
-            }
+                Description = dxgiAdapterDesc.Description,
+                DedicatedSystemMemory = dxgiAdapterDesc.DedicatedSystemMemory,
+                DedicatedVideoMemory = dxgiAdapterDesc.DedicatedVideoMemory,
+                SharedSystemMemory = dxgiAdapterDesc.SharedSystemMemory,
+                Luid = dxgiAdapterDesc.Luid,
+                DeviceId = dxgiAdapterDesc.DeviceId,
+                Revision = dxgiAdapterDesc.Revision,
+                SubSystemId = dxgiAdapterDesc.SubsystemId,
+                VenderId = dxgiAdapterDesc.VendorId
+            };
         }
-
-        DXGI.Adapter1 dxgiAdapter;
-        internal Adapter(DXGI.Adapter1 dxgiAdapter)
-        {
-            this.dxgiAdapter = dxgiAdapter;
-        }
-        public override Graphics.AdapterDescription AdapterDescription => DirectX.AdapterDescription.CreateFrom(dxgiAdapter.Description);
     }
 }

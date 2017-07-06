@@ -68,10 +68,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphics\Adapter.cs" />
+    <Compile Include="Graphics\AdapterDescription.cs" />
     <Compile Include="Graphics\Device2D.cs" />
     <Compile Include="Graphics\DirectX\Adapter.cs" />
+    <Compile Include="Graphics\DirectX\AdapterDescription.cs" />
     <Compile Include="Graphics\DirectX\Device2D.cs" />
     <Compile Include="Graphics\DisplayProperties.cs" />
+    <Compile Include="Graphics\Output.cs" />
     <Compile Include="Platforms\Platform.cs" />
     <Compile Include="Platforms\WindowsPlatform.cs" />
     <Compile Include="Graphics\DirectX\Device.cs" />
