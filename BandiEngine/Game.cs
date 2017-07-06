@@ -28,13 +28,11 @@ namespace BandiEngine
 {
     public abstract class Game
     {
-        RenderForm renderForm = new RenderForm("Bandi Engine");
-        Graphics.Device graphicDevice;
-
         public GameTime GameTime { get; } = new GameTime();
         public ModuleContainer Modules { get; } = new ModuleContainer();
+        public Platform Platform { get; protected set; }
+        public Graphics.Device GraphicsDevice { get; protected set; }
 
-        public IntPtr WindowHandle => renderForm.Handle;
         public Game()
         {
         }
@@ -43,27 +41,27 @@ namespace BandiEngine
         {
             Initialize();
             GameTime.Start();
-            RenderLoop.Run(renderForm, () =>
-            {
-                GameTime.Update();
-                Update();
-                Draw();
-            });
+
+            Modules.Find<Platform>().RunLoop();
         }
 
         public virtual void Initialize()
         {
-            Modules.Add(graphicDevice = Graphics.Device.CreateDefault());
+            this.Platform = new WindowsPlatform(this, "Bandi Engine");
+            this.GraphicsDevice = new Graphics.DirectX.Device(Platform as WindowsPlatform);
+
+            Modules.Add(Platform);
+            Modules.Add(GraphicsDevice);
         }
 
         public virtual void Update()
         {
-
+            GameTime.Update();
         }
 
         public virtual void Draw()
         {
-            graphicDevice.Present();
+            GraphicsDevice.Present();
         }
     }
 }

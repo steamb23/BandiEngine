@@ -45,8 +45,6 @@ namespace BandiEngine
 
         public sealed override void RunLoop()
         {
-            Game.Initialize();
-            Game.GameTime.Start();
             RenderLoop.Run(renderForm, () =>
             {
                 Game.GameTime.Update();
