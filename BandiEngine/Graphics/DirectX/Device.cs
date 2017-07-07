@@ -32,7 +32,6 @@ using DWrite = SharpDX.DirectWrite;
 using DXGI = SharpDX.DXGI;
 
 using static SharpDX.Utilities;
-using static BandiEngine.Win32Native;
 
 namespace BandiEngine.Graphics.DirectX
 {
