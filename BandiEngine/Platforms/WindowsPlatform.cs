@@ -19,6 +19,7 @@
 // SOFTWARE.
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,13 @@ namespace BandiEngine
             renderForm = new RenderForm();
         }
 
+        public RenderForm RenderForm => renderForm;
+
+        public IntPtr Handle => renderForm.Handle;
+
         public sealed override string Title { get => renderForm.Text; set => renderForm.Text = value; }
+
+        public sealed override Size Size { get => renderForm.Size; set => renderForm.Size = value; }
 
         public sealed override void RunLoop()
         {

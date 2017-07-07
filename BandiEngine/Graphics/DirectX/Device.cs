@@ -32,11 +32,15 @@ using DWrite = SharpDX.DirectWrite;
 using DXGI = SharpDX.DXGI;
 
 using static SharpDX.Utilities;
+using static BandiEngine.Win32Native;
 
 namespace BandiEngine.Graphics.DirectX
 {
     public sealed class Device : Graphics.Device, IDisposable
     {
+        static readonly DXGI.Rational _standardRefreshRate = new DXGI.Rational(1, 60);
+
+        WindowsPlatform platform;
         Adapter adapter;
 
         D3D11.Device d3dDevice;
@@ -48,11 +52,13 @@ namespace BandiEngine.Graphics.DirectX
         {
             DisplayProperties = new DisplayProperties()
             {
-                Width = 1280,
-                Height = 720,
+                Width = platform.Size.Width,
+                Height = platform.Size.Height,
                 MultiSample = MultiSampleMode._4x,
                 VSync = VSyncMode.EveryBlank
             };
+            CreateDevice();
+            CreateSwapChain(platform);
         }
 
         public override void Clear()
@@ -89,21 +95,43 @@ namespace BandiEngine.Graphics.DirectX
             }
         }
 
-        void CreateSwapChain(IntPtr hWnd)
+        void CreateSwapChain(WindowsPlatform platform)
         {
             Utilities.Dispose(ref dxgiSwapChain);
 
             var swapChainDesc = new DXGI.SwapChainDescription()
             {
-                OutputHandle = hWnd,
+                OutputHandle = platform.Handle,
                 Usage = DXGI.Usage.RenderTargetOutput
             };
             // 전체화면시 설정
             if (DisplayProperties.IsFullscreen)
             {
                 swapChainDesc.IsWindowed = false;
-                swapChainDesc.ModeDescription =
+                swapChainDesc.ModeDescription = new DXGI.ModeDescription(DisplayProperties.Width, DisplayProperties.Height, _standardRefreshRate, DXGI.Format.R8G8B8A8_UNorm);
             }
+            // 창모드시 설정
+            else
+            {
+                var platformSize = platform.Size;
+                swapChainDesc.IsWindowed = true;
+                swapChainDesc.ModeDescription = new DXGI.ModeDescription(
+                    platformSize.Width,
+                    platformSize.Height,
+                    new DXGI.Rational(1, 60),
+                    DXGI.Format.R8G8B8A8_UNorm);
+            }
+            // 샘플링 여부
+            swapChainDesc.SampleDescription = new DXGI.SampleDescription()
+            {
+                Count = (int)DisplayProperties.MultiSample,
+                Quality = DisplayProperties.MultiSample == MultiSampleMode.None ?
+                    0 :
+                    d3dDevice.CheckMultisampleQualityLevels(DXGI.Format.R8G8B8A8_UNorm, (int)DisplayProperties.MultiSample) - 1
+            };
+            // 교환 사슬 생성
+            using (var dxgiFactory = adapter.DXGI_ADAPTER.GetParent<DXGI.Factory>())
+                dxgiSwapChain = new DXGI.SwapChain(dxgiFactory, d3dDevice, swapChainDesc);
         }
 
         void CreateRenderTarget()

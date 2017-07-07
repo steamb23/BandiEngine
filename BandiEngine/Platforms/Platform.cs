@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharpDX;
 
 namespace BandiEngine
 {
@@ -40,11 +41,8 @@ namespace BandiEngine
 
         public abstract string Title { get; set; }
 
-        public abstract void RunLoop();
+        public abstract System.Drawing.Size Size { get; set; }
 
-        public virtual void Load()
-        {
-            // Empty method
-        }
+        public abstract void RunLoop();
     }
 }
