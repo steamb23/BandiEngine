@@ -37,6 +37,8 @@ namespace BandiEngine.Graphics.DirectX
 {
     public sealed class Device : Graphics.Device, IDisposable
     {
+        Adapter adapter;
+
         D3D11.Device d3dDevice;
         D3D11.DeviceContext d3dContext;
 
@@ -75,8 +77,16 @@ namespace BandiEngine.Graphics.DirectX
 
             var creationFlags = D3D11.DeviceCreationFlags.BgraSupport;
 
+            // 디바이스 생성
             d3dDevice = new D3D11.Device(D3D.DriverType.Hardware, creationFlags, featureLevelList.ToArray());
             d3dContext = d3dDevice.ImmediateContext;
+
+            // 어댑터 가져오기
+            using (var dxgiDevice = d3dDevice.QueryInterface<DXGI.Device2>())
+            using (var dxgiAdapter = dxgiDevice.Adapter)
+            {
+                adapter = new Adapter(dxgiDevice.Adapter.QueryInterface<DXGI.Adapter1>());
+            }
         }
 
         void CreateSwapChain(IntPtr hWnd)
@@ -92,10 +102,10 @@ namespace BandiEngine.Graphics.DirectX
             if (DisplayProperties.IsFullscreen)
             {
                 swapChainDesc.IsWindowed = false;
-                // swapChainDesc.ModeDescription = 
+                swapChainDesc.ModeDescription =
             }
         }
-        
+
         void CreateRenderTarget()
         {
 
