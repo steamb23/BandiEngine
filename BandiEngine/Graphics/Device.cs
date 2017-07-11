@@ -30,7 +30,7 @@ namespace BandiEngine.Graphics
     /// </summary>
     public abstract class Device
     {
-        public Device(Platform platform, DisplayProperties? displayProperties)
+        public Device(Platform platform, DisplayProperties displayProperties)
         {
             if (displayProperties == null)
             {
@@ -43,7 +43,7 @@ namespace BandiEngine.Graphics
                 };
             }
             this.Platform = platform;
-            this.DisplayProperties = (DisplayProperties)displayProperties;
+            this.DisplayProperties = displayProperties;
         }
         public Platform Platform { get; }
         public DisplayProperties DisplayProperties { get; set; }

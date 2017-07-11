@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Graphics
 {
-    public struct DisplayProperties
+    public class DisplayProperties
     {
         public int Width { get; set; }
         public int Height { get; set; }

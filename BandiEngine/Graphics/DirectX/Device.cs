@@ -47,7 +47,7 @@ namespace BandiEngine.Graphics.DirectX
 
         DXGI.SwapChain dxgiSwapChain;
 
-        public Device(WindowsPlatform platform, DisplayProperties? displayProperties) : base(platform, displayProperties)
+        public Device(WindowsPlatform platform, DisplayProperties displayProperties) : base(platform, displayProperties)
         {
             CreateDevice();
             CreateSwapChain(platform);

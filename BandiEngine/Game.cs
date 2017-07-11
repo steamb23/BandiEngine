@@ -48,7 +48,7 @@ namespace BandiEngine
         public virtual void Initialize()
         {
             this.Platform = new WindowsPlatform(this, "Bandi Engine");
-            this.GraphicsDevice = new Graphics.DirectX.Device(Platform as WindowsPlatform);
+            this.GraphicsDevice = new Graphics.DirectX.Device((WindowsPlatform)Platform, null);
 
             Modules.Add(Platform);
             Modules.Add(GraphicsDevice);

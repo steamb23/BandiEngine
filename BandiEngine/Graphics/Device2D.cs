@@ -34,7 +34,7 @@ namespace BandiEngine.Graphics
 
         public Device Device => this.device;
 
-        public Device2D(Device device)
+        public Device2D(Device device) : base(device.Platform, device.DisplayProperties)
         {
             if (device is Device2D)
                 throw new ArgumentException(Resources.Device2D_constructor_ArgumentException, "device");
