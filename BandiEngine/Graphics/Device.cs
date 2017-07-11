@@ -45,7 +45,8 @@ namespace BandiEngine.Graphics
             this.Platform = platform;
             this.DisplayProperties = displayProperties;
         }
-        public Platform Platform { get; }
+        public Platform Platform { get; protected set; }
+        public Adapter Adapter { get; protected set; }
         public DisplayProperties DisplayProperties { get; set; }
 
         public virtual void Load()

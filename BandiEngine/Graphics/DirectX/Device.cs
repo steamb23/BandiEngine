@@ -45,6 +45,9 @@ namespace BandiEngine.Graphics.DirectX
         D3D11.Device d3dDevice;
         D3D11.DeviceContext d3dContext;
 
+        D3D11.RenderTargetView d3dRenderTargetView;
+        D3D11.DepthStencilView d3dDepthStencilView;
+
         DXGI.SwapChain dxgiSwapChain;
 
         public Device(WindowsPlatform platform, DisplayProperties displayProperties) : base(platform, displayProperties)
@@ -86,6 +89,7 @@ namespace BandiEngine.Graphics.DirectX
             using (var dxgiAdapter = dxgiDevice.Adapter)
             {
                 adapter = new Adapter(dxgiDevice.Adapter.QueryInterface<DXGI.Adapter1>());
+                Adapter = adapter;
             }
         }
 
@@ -102,7 +106,11 @@ namespace BandiEngine.Graphics.DirectX
             if (DisplayProperties.IsFullscreen)
             {
                 swapChainDesc.IsWindowed = false;
-                swapChainDesc.ModeDescription = new DXGI.ModeDescription(DisplayProperties.Width, DisplayProperties.Height, _standardRefreshRate, DXGI.Format.R8G8B8A8_UNorm);
+                swapChainDesc.ModeDescription = new DXGI.ModeDescription(
+                    DisplayProperties.Width,
+                    DisplayProperties.Height,
+                    _standardRefreshRate,
+                    DXGI.Format.R8G8B8A8_UNorm);
             }
             // 창모드시 설정
             else
@@ -112,7 +120,7 @@ namespace BandiEngine.Graphics.DirectX
                 swapChainDesc.ModeDescription = new DXGI.ModeDescription(
                     platformSize.Width,
                     platformSize.Height,
-                    new DXGI.Rational(1, 60),
+                    _standardRefreshRate,
                     DXGI.Format.R8G8B8A8_UNorm);
             }
             // 샘플링 여부
@@ -130,12 +138,39 @@ namespace BandiEngine.Graphics.DirectX
 
         void CreateRenderTarget()
         {
+            using (var backBuffer = dxgiSwapChain.GetBackBuffer<D3D11.Texture2D>(0))
+            {
+                d3dContext.OutputMerger.SetTargets((D3D11.DepthStencilView)null, (D3D11.RenderTargetView)null);
 
+                Utilities.Dispose(ref d3dRenderTargetView);
+                Utilities.Dispose(ref d3dDepthStencilView);
+
+                // 백버퍼의 설정을 복사후 수정
+                var depthStencilBufferDesc = backBuffer.Description;
+                depthStencilBufferDesc.Format = DXGI.Format.D24_UNorm_S8_UInt;
+                depthStencilBufferDesc.BindFlags = D3D11.BindFlags.DepthStencil;
+
+                using (var depthStencilBuffer = new D3D11.Texture2D(d3dDevice, depthStencilBufferDesc))
+                {
+                    d3dRenderTargetView = new D3D11.RenderTargetView(d3dDevice, backBuffer);
+                    d3dDepthStencilView = new D3D11.DepthStencilView(d3dDevice, depthStencilBuffer);
+                    // DirectX 2D 렌더타겟 설정.
+                    //using (var d2dRenderTargetSurface = backBuffer.QueryInterface<DXGI.Surface>())
+                    //{
+                    //    d2dRenderTarget = new D2D1.RenderTarget(
+                    //        d2dFactory,
+                    //        d2dRenderTargetSurface,
+                    //        new D2D1.RenderTargetProperties(new D2D1.PixelFormat(DXGI.Format.B8G8R8A8_UNorm, D2D1.AlphaMode.Premultiplied)));
+                    //}
+                }
+            }
         }
 
         #region DirectX Instances
         internal D3D11.Device D3D_DEVICE => d3dDevice;
         internal D3D11.DeviceContext D3D_DEVICE_CONTEXT => d3dContext;
+        internal D3D11.RenderTargetView D3D_RENDER_TARGET_VIEW => d3dRenderTargetView;
+        internal D3D11.DepthStencilView D3D_DEPTH_STENCIL_VIEW => d3dDepthStencilView;
         internal DXGI.SwapChain DXGI_SWAP_CHAIN => dxgiSwapChain;
         #endregion
 
@@ -154,6 +189,11 @@ namespace BandiEngine.Graphics.DirectX
                 // TODO: 큰 필드를 null로 설정합니다.
                 Utilities.Dispose(ref d3dDevice);
                 Utilities.Dispose(ref d3dContext);
+
+                Utilities.Dispose(ref d3dRenderTargetView);
+                Utilities.Dispose(ref d3dDepthStencilView);
+
+                Utilities.Dispose(ref dxgiSwapChain);
                 disposedValue = true;
             }
         }
