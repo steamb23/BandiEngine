@@ -60,11 +60,19 @@ namespace BandiEngine.Graphics.DirectX
 
         public override void Clear()
         {
+            lock (d3dContext)
+            {
+                d3dContext.ClearDepthStencilView(d3dDepthStencilView, D3D11.DepthStencilClearFlags.Depth, 1.0f, 0);
+                d3dContext.ClearRenderTargetView(d3dRenderTargetView, Color.Orange);
+            }
         }
 
         public override void Present()
         {
-
+            lock (d3dContext)
+            {
+                dxgiSwapChain.Present((int)DisplayProperties.VSync, DXGI.PresentFlags.None);
+            }
         }
 
         void CreateDevice()
