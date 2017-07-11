@@ -47,18 +47,13 @@ namespace BandiEngine.Graphics.DirectX
 
         DXGI.SwapChain dxgiSwapChain;
 
-        public Device(WindowsPlatform platform)
+        public Device(WindowsPlatform platform, DisplayProperties? displayProperties) : base(platform, displayProperties)
         {
-            DisplayProperties = new DisplayProperties()
-            {
-                Width = platform.Size.Width,
-                Height = platform.Size.Height,
-                MultiSample = MultiSampleMode._4x,
-                VSync = VSyncMode.EveryBlank
-            };
             CreateDevice();
             CreateSwapChain(platform);
         }
+
+        public new WindowsPlatform Platform => (WindowsPlatform)base.Platform;
 
         public override void Clear()
         {

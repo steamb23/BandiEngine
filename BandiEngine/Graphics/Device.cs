@@ -30,6 +30,22 @@ namespace BandiEngine.Graphics
     /// </summary>
     public abstract class Device
     {
+        public Device(Platform platform, DisplayProperties? displayProperties)
+        {
+            if (displayProperties == null)
+            {
+                displayProperties = new DisplayProperties()
+                {
+                    Width = platform.Size.Width,
+                    Height = platform.Size.Height,
+                    MultiSample = MultiSampleMode._4x,
+                    VSync = VSyncMode.EveryBlank
+                };
+            }
+            this.Platform = platform;
+            this.DisplayProperties = (DisplayProperties)displayProperties;
+        }
+        public Platform Platform { get; }
         public DisplayProperties DisplayProperties { get; set; }
 
         public virtual void Load()
