@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandiEngine", "BandiEngine\BandiEngine.csproj", "{7A18F1F0-1173-4006-935D-9143668BB794}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{7E905482
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandiEngineTests", "BandiEngineTests\BandiEngineTests.csproj", "{E8FB5F2A-58EF-44A3-8818-F7FCE0E693FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{7A18F1F0-1173-4006-935D-9143668BB794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A18F1F0-1173-4006-935D-9143668BB794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A18F1F0-1173-4006-935D-9143668BB794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8FB5F2A-58EF-44A3-8818-F7FCE0E693FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8FB5F2A-58EF-44A3-8818-F7FCE0E693FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8FB5F2A-58EF-44A3-8818-F7FCE0E693FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8FB5F2A-58EF-44A3-8818-F7FCE0E693FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
