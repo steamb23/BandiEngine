@@ -88,6 +88,8 @@ namespace BandiEngine.Graphics.DirectX
 
             var creationFlags = D3D11.DeviceCreationFlags.BgraSupport;
 
+            creationFlags |= D3D11.DeviceCreationFlags.Debug;
+
             // 디바이스 생성
             d3dDevice = new D3D11.Device(D3D.DriverType.Hardware, creationFlags, featureLevelList.ToArray());
             d3dContext = d3dDevice.ImmediateContext;
@@ -108,7 +110,9 @@ namespace BandiEngine.Graphics.DirectX
             var swapChainDesc = new DXGI.SwapChainDescription()
             {
                 OutputHandle = platform.Handle,
-                Usage = DXGI.Usage.RenderTargetOutput
+                Usage = DXGI.Usage.RenderTargetOutput,
+                BufferCount = (int)DisplayProperties.Buffer,
+                Flags = DXGI.SwapChainFlags.AllowModeSwitch
             };
             // 전체화면시 설정
             if (DisplayProperties.IsFullscreen)

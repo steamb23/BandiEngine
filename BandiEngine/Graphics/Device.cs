@@ -38,6 +38,7 @@ namespace BandiEngine.Graphics
                 {
                     Width = platform.Size.Width,
                     Height = platform.Size.Height,
+                    Buffer = BufferMode.SingleBuffer,
                     MultiSample = MultiSampleMode._4x,
                     VSync = VSyncMode.EveryBlank
                 };

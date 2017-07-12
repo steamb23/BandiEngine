@@ -27,9 +27,25 @@ namespace BandiEngine.Graphics
 {
     public class DisplayProperties
     {
+        BufferMode buffer;
+
         public int Width { get; set; }
         public int Height { get; set; }
-        public BufferMode Buffer { get; set; }
+        public BufferMode Buffer
+        {
+            get
+            {
+                if (buffer == BufferMode.None)
+                    buffer = BufferMode.SingleBuffer;
+                return buffer;
+            }
+            set
+            {
+                if (value == BufferMode.None)
+                    value = BufferMode.SingleBuffer;
+                buffer = value;
+            }
+        }
         public MultiSampleMode MultiSample { get; set; }
         public bool IsFullscreen { get; set; }
         public VSyncMode VSync { get; set; }
@@ -38,9 +54,9 @@ namespace BandiEngine.Graphics
     public enum BufferMode : int
     {
         None = 0,
-        SingleBuffer = 0,
-        DoubleBuffer = 1,
-        TripleBuffer = 2
+        SingleBuffer = 1,
+        DoubleBuffer = 2,
+        TripleBuffer = 3
     }
 
     public enum MultiSampleMode : int
