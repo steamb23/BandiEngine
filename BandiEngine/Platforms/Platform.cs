@@ -26,7 +26,7 @@ using SharpDX;
 
 namespace BandiEngine
 {
-    public abstract class Platform
+    public abstract class Platform : IDisposable
     {
         public Platform(Game game)
         {
@@ -44,5 +44,37 @@ namespace BandiEngine
         public abstract System.Drawing.Size Size { get; set; }
 
         public abstract void RunLoop();
+
+        #region IDisposable Support
+        bool isDisposed;
+
+        public bool IsDisposed => isDisposed;
+
+        private void BaseDispose(bool disposing)
+        {
+            if (IsDisposed)
+            {
+                Dispose(disposing);
+                GC.SuppressFinalize(this);
+
+                isDisposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+
+        }
+
+        public void Dispose()
+        {
+            BaseDispose(true);
+        }
+
+        ~Platform()
+        {
+            BaseDispose(false);
+        }
+        #endregion
     }
 }

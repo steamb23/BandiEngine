@@ -25,8 +25,41 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Graphics
 {
-    public abstract class Output
+    public abstract class Output : IDisposable
     {
         public abstract OutputDescription Description { get; }
+
+
+        #region IDisposable Support
+        bool isDisposed;
+
+        public bool IsDisposed => isDisposed;
+
+        private void BaseDispose(bool disposing)
+        {
+            if (IsDisposed)
+            {
+                Dispose(disposing);
+                GC.SuppressFinalize(this);
+
+                isDisposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+
+        }
+
+        public void Dispose()
+        {
+            BaseDispose(true);
+        }
+
+        ~Output()
+        {
+            BaseDispose(false);
+        }
+        #endregion
     }
 }

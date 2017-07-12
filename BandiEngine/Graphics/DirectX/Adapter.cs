@@ -106,5 +106,12 @@ namespace BandiEngine.Graphics.DirectX
         #region DirectX Instances
         internal DXGI.Adapter1 DXGI_ADAPTER => dxgiAdapter;
         #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            Utilities.Dispose(ref dxgiAdapter);
+        }
     }
 }

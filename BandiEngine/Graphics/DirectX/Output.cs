@@ -45,5 +45,11 @@ namespace BandiEngine.Graphics.DirectX
         }
 
         public override Graphics.OutputDescription Description => OutputDescription.CreateFrom(dxgiOutput.Description);
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            Utilities.Dispose(ref dxgiOutput);
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace BandiEngine.Graphics
     /// <summary>
     /// 기본 그래픽 및 3D 관련 기능을 제공합니다.
     /// </summary>
-    public abstract class Device
+    public abstract class Device : IDisposable
     {
         public Device(Platform platform, DisplayProperties displayProperties)
         {
@@ -56,5 +56,37 @@ namespace BandiEngine.Graphics
 
         public abstract void Clear();
         public abstract void Present();
+
+        #region IDisposable Support
+        bool isDisposed;
+
+        public bool IsDisposed => isDisposed;
+
+        private void BaseDispose(bool disposing)
+        {
+            if (IsDisposed)
+            {
+                Dispose(disposing);
+                GC.SuppressFinalize(this);
+
+                isDisposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+
+        }
+
+        public void Dispose()
+        {
+            BaseDispose(true);
+        }
+
+        ~Device()
+        {
+            BaseDispose(false);
+        }
+        #endregion
     }
 }

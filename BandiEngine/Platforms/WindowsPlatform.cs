@@ -46,11 +46,11 @@ namespace BandiEngine
 
         public IntPtr Handle => renderForm.Handle;
 
-        public sealed override string Title { get => renderForm.Text; set => renderForm.Text = value; }
+        public override string Title { get => renderForm.Text; set => renderForm.Text = value; }
 
-        public sealed override Size Size { get => renderForm.Size; set => renderForm.Size = value; }
+        public override Size Size { get => renderForm.Size; set => renderForm.Size = value; }
 
-        public sealed override void RunLoop()
+        public override void RunLoop()
         {
             RenderLoop.Run(renderForm, () =>
             {
@@ -58,6 +58,12 @@ namespace BandiEngine
                 Game.Update();
                 Game.Draw();
             });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            renderForm.Dispose();
+            renderForm = null;
         }
     }
 }

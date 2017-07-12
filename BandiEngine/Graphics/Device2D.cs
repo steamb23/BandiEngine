@@ -50,5 +50,12 @@ namespace BandiEngine.Graphics
         {
             this.device.Present();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            device.Dispose();
+            device = null;
+        }
     }
 }

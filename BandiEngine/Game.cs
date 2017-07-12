@@ -26,7 +26,7 @@ using SharpDX.Windows;
 
 namespace BandiEngine
 {
-    public abstract class Game
+    public abstract class Game : IDisposable
     {
         public GameTime GameTime { get; } = new GameTime();
         public ModuleContainer Modules { get; } = new ModuleContainer();
@@ -63,5 +63,41 @@ namespace BandiEngine
         {
             GraphicsDevice.Present();
         }
+
+
+        #region IDisposable Support
+        bool isDisposed;
+
+        public bool IsDisposed => isDisposed;
+
+        private void BaseDispose(bool disposing)
+        {
+            if (IsDisposed)
+            {
+                Dispose(disposing);
+                GC.SuppressFinalize(this);
+
+                isDisposed = true;
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            Platform.Dispose();
+            Platform = null;
+            GraphicsDevice.Dispose();
+            GraphicsDevice = null;
+        }
+
+        public void Dispose()
+        {
+            BaseDispose(true);
+        }
+
+        ~Game()
+        {
+            BaseDispose(false);
+        }
+        #endregion
     }
 }
