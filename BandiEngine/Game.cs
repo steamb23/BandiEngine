@@ -64,6 +64,11 @@ namespace BandiEngine
             GraphicsDevice.Present();
         }
 
+        public void Exit()
+        {
+            Platform.Close();
+        }
+
 
         #region IDisposable Support
         bool isDisposed;

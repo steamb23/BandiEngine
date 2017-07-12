@@ -37,9 +37,9 @@ namespace BandiEngine
             renderForm = new RenderForm();
         }
 
-        public WindowsPlatform(Game game, string title) : base(game, title)
+        public WindowsPlatform(Game game, string title) : base(game)
         {
-            renderForm = new RenderForm();
+            renderForm = new RenderForm(title);
         }
 
         public RenderForm RenderForm => renderForm;
@@ -58,6 +58,11 @@ namespace BandiEngine
                 Game.Update();
                 Game.Draw();
             });
+        }
+
+        public override void Close()
+        {
+            renderForm.Close();
         }
 
         protected override void Dispose(bool disposing)

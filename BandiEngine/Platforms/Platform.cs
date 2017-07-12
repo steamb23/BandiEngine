@@ -32,10 +32,6 @@ namespace BandiEngine
         {
             this.Game = game;
         }
-        public Platform(Game game, string title) : this(game)
-        {
-            this.Title = title;
-        }
 
         public Game Game { get; }
 
@@ -44,6 +40,8 @@ namespace BandiEngine
         public abstract System.Drawing.Size Size { get; set; }
 
         public abstract void RunLoop();
+
+        public abstract void Close();
 
         #region IDisposable Support
         bool isDisposed;
