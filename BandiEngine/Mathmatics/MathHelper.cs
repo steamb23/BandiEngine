@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Mathmatics
 {
-    public static class Math
+    public static class MathHelper
     {
         public const float ZeroTolerance = 1e-6f;
 

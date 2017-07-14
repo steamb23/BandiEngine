@@ -80,7 +80,7 @@
     <Compile Include="Graphics\DisplayProperties.cs" />
     <Compile Include="Graphics\Output.cs" />
     <Compile Include="Graphics\OutputDescription.cs" />
-    <Compile Include="Mathmatics\Math.cs" />
+    <Compile Include="Mathmatics\MathHelper.cs" />
     <Compile Include="Mathmatics\Vector2.cs" />
     <Compile Include="Platforms\Platform.cs" />
     <Compile Include="Platforms\WindowsPlatform.cs" />
