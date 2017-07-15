@@ -35,11 +35,11 @@ namespace BandiEngine.Mathematics
     public struct Vector2 : IEquatable<Vector2>, IFormattable
     {
         public static readonly Vector2 Zero = new Vector2();
-        public static readonly Vector2 Up = new Vector2(0, 1);
-        public static readonly Vector2 Down = new Vector2(0, -1);
-        public static readonly Vector2 Left = new Vector2(-1, 0);
-        public static readonly Vector2 Right = new Vector2(1, 0);
-        public static readonly Vector2 One = new Vector2(1);
+        public static readonly Vector2 Up = new Vector2(0f, 1f);
+        public static readonly Vector2 Down = new Vector2(0f, -1f);
+        public static readonly Vector2 Left = new Vector2(-1f, 0f);
+        public static readonly Vector2 Right = new Vector2(1f, 0f);
+        public static readonly Vector2 One = new Vector2(1f);
 
         public float X;
         public float Y;
@@ -56,137 +56,10 @@ namespace BandiEngine.Mathematics
             Y = y;
         }
 
-        public Vector2 Negative
-        {
-            get
-            {
-                return Negate(this);
-            }
-        }
-
-        public float Length =>
-            (float)Math.Sqrt(LengthSquared);
-
-        public float LengthSquared =>
-            Dot(this);
-
-        public float Distance(Vector2 other) => Distance(this, other);
-        public float DistanceSquared(Vector2 other) => DistanceSquared(this, other);
-
-        public bool IsNormalized =>
-            Math.Abs((X * X + Y * Y) - 1f) < MathHelper.ZeroTolerance;
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 더합니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Add(Vector2 value)
-        {
-            X += value.X;
-            Y += value.Y;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 더합니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Add(float value)
-        {
-            X += value;
-            Y += value;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 뺍니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Subtract(Vector2 value)
-        {
-            X -= value.X;
-            Y -= value.Y;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 뺍니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Subtract(float value)
-        {
-            X -= value;
-            Y -= value;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 곱합니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Multiply(Vector2 value)
-        {
-            X *= value.X;
-            Y *= value.Y;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 곱합니다.
-        /// </summary>
-        /// <param name="value"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Multiply(float value)
-        {
-            X *= value;
-            Y *= value;
-        }
-
-        /// <summary>
-        /// 이 인스턴스에 <paramref name="value"/>를 나눕니다.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Divide(Vector2 value)
-        {
-            X /= value.X;
-            Y /= value.Y;
-        }
-
-        /// <summary>
-        /// 이 인스턴스의 값을 부정합니다.
-        /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Negate()
-        {
-            X = -X;
-            Y = -Y;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Normalize()
-        {
-            var length = this.Length;
-            if (length > MathHelper.ZeroTolerance)
-            {
-                var inv = 1 / length;
-                X *= inv;
-                Y *= inv;
-            }
-        }
-
-        /// <summary>
-        /// 이 인스턴스와 <paramref name="value"/>를 사용해 내적을 구합니다.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float Dot(Vector2 value) => Dot(this, value);
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector2 other) =>
             MathHelper.RelativeNearEquals(X, other.X) && MathHelper.RelativeNearEquals(Y, other.Y);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
         {
             if (!(obj is Vector2))
@@ -194,7 +67,7 @@ namespace BandiEngine.Mathematics
 
             return Equals((Vector2)obj);
         }
-        
+
         public override int GetHashCode()
         {
             var xhash = X.GetHashCode();
@@ -262,15 +135,16 @@ namespace BandiEngine.Mathematics
         public static Vector2 Divide(float value, Vector2 vector) =>
             new Vector2(value / vector.X, value / vector.Y);
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 Negate(Vector2 value) =>
             new Vector2(-value.X, -value.Y);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 Normalize(Vector2 value)
         {
-            value.Normalize();
-            return value;
+            var length = Length(value);
+            return
+                length > MathHelper.ZeroTolerance ? value * (1f / length) :
+                value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -278,12 +152,19 @@ namespace BandiEngine.Mathematics
             value1.X * value2.X + value1.Y * value2.Y;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Length(Vector2 value) =>
+            (float)Math.Sqrt(LengthSquared(value));
+
+        public static float LengthSquared(Vector2 value) =>
+            Dot(value, value);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Distance(Vector2 value1, Vector2 value2) =>
-            (value1 - value2).Length;
+            Length((value1 - value2));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float DistanceSquared(Vector2 value1, Vector2 value2) =>
-            (value1 - value2).LengthSquared;
+            LengthSquared((value1 - value2));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator +(Vector2 left, Vector2 right) => Add(left, right);
@@ -313,5 +194,12 @@ namespace BandiEngine.Mathematics
         public static bool operator !=(Vector2 left, Vector2 right) => !left.Equals(right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector2 left, Vector2 right) => left.Equals(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 operator +(Vector2 value) => value;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 operator -(Vector2 value) => Negate(value);
+        public static Vector2 operator ++(Vector2 value) => value + 1f;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 operator --(Vector2 value) => value - 1f;
     }
 }
