@@ -17,17 +17,20 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+// 
+// Original code from SharpDX.Mathematics. https://github.com/sharpdx/SharpDX/
+// This code has been modified as needed.
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BandiEngine.Mathmatics
+namespace BandiEngine.Mathematics
 {
     public static class MathHelper
     {
-        public const float ZeroTolerance = 1e-6f;
+        public const float ZeroTolerance = 1e-6f; // Epsilon 값 1.19209290E-07F의 8배 이상의 값입니다.
 
         public const float PI = (float)System.Math.PI;
 
