@@ -127,5 +127,36 @@ namespace BandiEngine.Mathematics
             (amount <= 0) ? 0 :
             (amount >= 1) ? 1 :
             amount * amount * amount * (amount * ((amount * 6) - 15) + 10);
+
+        public static bool NearEquals(float a, float b, float tolerance = ZeroTolerance) =>
+            Math.Abs(a - b) <= tolerance;
+
+        public static bool RelativeNearEquals(float a, float b, float tolerance = ZeroTolerance)
+        {
+            var diff = Math.Abs(a - b);
+            if (diff <= tolerance)
+                return true;
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+            float largest = (b > a) ? b : a;
+            return diff <= largest * tolerance;
+        }
+
+        //public unsafe static bool UlpNearEquals(float a, float b, float tolerance = ZeroTolerance, int maxUlp = 4)
+        //{
+        //    if (NearEquals(a, b))
+        //        return true;
+
+        //    int aInt = *(int*)&a;
+        //    int bInt = *(int*)&b;
+
+        //    // 부호가 다르면 값이 같지 않다는 것을 의미
+        //    if (aInt < 0 != bInt < 0)
+        //        return false;
+
+        //    int ulp = Math.Abs(aInt - bInt);
+        //    return ulp <= maxUlp;
+        //}
     }
 }

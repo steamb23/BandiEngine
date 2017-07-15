@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 namespace BandiEngine.Mathematics
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct Vector2
+    public struct Vector2 : IEquatable<Vector2>
     {
         public static readonly Vector2 Zero = new Vector2();
         public static readonly Vector2 Up = new Vector2(0, 1);
@@ -153,6 +153,35 @@ namespace BandiEngine.Mathematics
             Y = -Y;
         }
 
+        public void Normalize()
+        {
+            var length = this.Length;
+            if (length > MathHelper.ZeroTolerance)
+            {
+                var inv = 1 / length;
+                X *= inv;
+                Y *= inv;
+            }
+        }
+
+        public bool Equals(Vector2 other) =>
+            MathHelper.RelativeNearEquals(X, other.X) && MathHelper.RelativeNearEquals(Y, other.Y);
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector2))
+                return false;
+
+            return Equals((Vector2)obj);
+        }
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
+            }
+        }
+
         public static Vector2 Add(Vector2 value1, Vector2 value2) =>
             new Vector2(value1.X + value2.X, value1.Y + value2.Y);
 
@@ -188,22 +217,31 @@ namespace BandiEngine.Mathematics
 
         public static Vector2 Negate(Vector2 value) =>
             new Vector2(-value.X, -value.Y);
+        public static Vector2 Normalize(Vector2 value)
+        {
+            value.Normalize();
+            return value;
+        }
+
         public static float Distance(Vector2 value1, Vector2 value2) =>
             (value1 - value2).Length;
+
         public static float DistanceSquered(Vector2 value1, Vector2 value2) =>
             (value1 - value2).LengthSquared;
 
-        public static Vector2 operator +(Vector2 right, Vector2 left) => Add(right, left);
-        public static Vector2 operator +(Vector2 right, float left) => Add(right, left);
-        public static Vector2 operator +(float right, Vector2 left) => Add(left, right);
-        public static Vector2 operator -(Vector2 right, Vector2 left) => Subtract(right, left);
-        public static Vector2 operator -(Vector2 right, float left) => Subtract(right, left);
-        public static Vector2 operator -(float right, Vector2 left) => Subtract(right, left);
-        public static Vector2 operator *(Vector2 right, Vector2 left) => Multiply(right, left);
-        public static Vector2 operator *(Vector2 right, float left) => Multiply(right, left);
-        public static Vector2 operator *(float right, Vector2 left) => Multiply(left, right);
-        public static Vector2 operator /(Vector2 right, Vector2 left) => Divide(right, left);
-        public static Vector2 operator /(Vector2 right, float left) => Divide(right, left);
-        public static Vector2 operator /(float right, Vector2 left) => Divide(right, left);
+        public static Vector2 operator +(Vector2 left, Vector2 right) => Add(left, right);
+        public static Vector2 operator +(Vector2 left, float right) => Add(left, right);
+        public static Vector2 operator +(float left, Vector2 right) => Add(right, left);
+        public static Vector2 operator -(Vector2 left, Vector2 right) => Subtract(left, right);
+        public static Vector2 operator -(Vector2 left, float right) => Subtract(left, right);
+        public static Vector2 operator -(float left, Vector2 right) => Subtract(left, right);
+        public static Vector2 operator *(Vector2 left, Vector2 right) => Multiply(left, right);
+        public static Vector2 operator *(Vector2 left, float right) => Multiply(left, right);
+        public static Vector2 operator *(float left, Vector2 right) => Multiply(right, left);
+        public static Vector2 operator /(Vector2 left, Vector2 right) => Divide(left, right);
+        public static Vector2 operator /(Vector2 left, float right) => Divide(left, right);
+        public static Vector2 operator /(float left, Vector2 right) => Divide(left, right);
+        public static bool operator !=(Vector2 left, Vector2 right) => !left.Equals(right);
+        public static bool operator ==(Vector2 left, Vector2 right) => left.Equals(right);
     }
 }
