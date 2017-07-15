@@ -23,13 +23,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BandiEngine.Mathematics
 {
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vector2
     {
+        public static readonly Vector2 Zero = new Vector2();
+        public static readonly Vector2 Up = new Vector2(0, 1);
+        public static readonly Vector2 Down = new Vector2(0, -1);
+        public static readonly Vector2 Left = new Vector2(-1, 0);
+        public static readonly Vector2 Right = new Vector2(1, 0);
+        public static readonly Vector2 One = new Vector2(1);
+
         public float X;
         public float Y;
 
@@ -44,6 +53,8 @@ namespace BandiEngine.Mathematics
             X = x;
             Y = y;
         }
+
+        public Vector2 Negative => Negate(this);
 
         public float Length =>
             (float)Math.Sqrt(LengthSquared);
@@ -115,6 +126,16 @@ namespace BandiEngine.Mathematics
         }
 
         /// <summary>
+        /// 이 인스턴스와 <paramref name="value"/>를 사용해 내적을 구합니다.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public float Dot(Vector2 value)
+        {
+            return Dot(this, value);
+        }
+
+        /// <summary>
         /// 이 인스턴스에 <paramref name="value"/>를 나눕니다.
         /// </summary>
         public void Divide(Vector2 value)
@@ -123,37 +144,66 @@ namespace BandiEngine.Mathematics
             Y /= value.Y;
         }
 
-        public static Vector2 Add(Vector2 left, Vector2 right) =>
-            new Vector2(left.X + right.X, left.Y + right.Y);
+        /// <summary>
+        /// 이 인스턴스의 값을 부정합니다.
+        /// </summary>
+        public void Negate()
+        {
+            X = -X;
+            Y = -Y;
+        }
 
-        public static Vector2 Add(Vector2 left, float right) =>
-            new Vector2(left.X + right, left.Y + right);
+        public static Vector2 Add(Vector2 value1, Vector2 value2) =>
+            new Vector2(value1.X + value2.X, value1.Y + value2.Y);
 
-        public static Vector2 Subtract(Vector2 left, Vector2 right) =>
-            new Vector2(left.X - right.X, left.Y + right.Y);
+        public static Vector2 Add(Vector2 value1, float value2) =>
+            new Vector2(value1.X + value2, value1.Y + value2);
 
-        public static Vector2 Subtract(Vector2 left, float right) =>
-            new Vector2(left.X - right, left.Y - right);
+        public static Vector2 Subtract(Vector2 value1, Vector2 value2) =>
+            new Vector2(value1.X - value2.X, value1.Y + value2.Y);
 
-        public static Vector2 Subtract(float left, Vector2 right) =>
-            new Vector2(left - right.X, left - right.Y);
+        public static Vector2 Subtract(Vector2 value1, float value2) =>
+            new Vector2(value1.X - value2, value1.Y - value2);
 
-        public static Vector2 Multiply(Vector2 left, Vector2 right) =>
-            new Vector2(left.X * right.X, left.Y * right.Y);
+        public static Vector2 Subtract(float value1, Vector2 value2) =>
+            new Vector2(value1 - value2.X, value1 - value2.Y);
+
+        public static Vector2 Multiply(Vector2 value1, Vector2 value2) =>
+            new Vector2(value1.X * value2.X, value1.Y * value2.Y);
 
         public static Vector2 Multiply(Vector2 value, float scale) =>
             new Vector2(value.X * scale, value.Y * scale);
 
-        public static float Dot(Vector2 left, Vector2 right) =>
-            left.X * right.X + left.Y * right.Y;
+        public static float Dot(Vector2 value1, Vector2 value2) =>
+            value1.X * value2.X + value1.Y * value2.Y;
 
-        public static Vector2 Divide(Vector2 left, Vector2 right) =>
-            new Vector2(left.X / right.X, left.Y / left.Y);
+        public static Vector2 Divide(Vector2 value1, Vector2 value2) =>
+            new Vector2(value1.X / value2.X, value1.Y / value1.Y);
 
         public static Vector2 Divide(Vector2 value, float divider) =>
             new Vector2(value.X / divider, value.Y / divider);
 
         public static Vector2 Divide(float value, Vector2 divider) =>
             new Vector2(value / divider.X, value / divider.Y);
+
+        public static Vector2 Negate(Vector2 value) =>
+            new Vector2(-value.X, -value.Y);
+        public static float Distance(Vector2 value1, Vector2 value2) =>
+            (value1 - value2).Length;
+        public static float DistanceSquered(Vector2 value1, Vector2 value2) =>
+            (value1 - value2).LengthSquared;
+
+        public static Vector2 operator +(Vector2 right, Vector2 left) => Add(right, left);
+        public static Vector2 operator +(Vector2 right, float left) => Add(right, left);
+        public static Vector2 operator +(float right, Vector2 left) => Add(left, right);
+        public static Vector2 operator -(Vector2 right, Vector2 left) => Subtract(right, left);
+        public static Vector2 operator -(Vector2 right, float left) => Subtract(right, left);
+        public static Vector2 operator -(float right, Vector2 left) => Subtract(right, left);
+        public static Vector2 operator *(Vector2 right, Vector2 left) => Multiply(right, left);
+        public static Vector2 operator *(Vector2 right, float left) => Multiply(right, left);
+        public static Vector2 operator *(float right, Vector2 left) => Multiply(left, right);
+        public static Vector2 operator /(Vector2 right, Vector2 left) => Divide(right, left);
+        public static Vector2 operator /(Vector2 right, float left) => Divide(right, left);
+        public static Vector2 operator /(float right, Vector2 left) => Divide(right, left);
     }
 }
