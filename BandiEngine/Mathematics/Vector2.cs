@@ -46,8 +46,7 @@ namespace BandiEngine.Mathematics
 
         public Vector2(float value)
         {
-            X = value;
-            Y = value;
+            X = Y = value;
         }
 
         public Vector2(float x, float y)
@@ -55,6 +54,27 @@ namespace BandiEngine.Mathematics
             X = x;
             Y = y;
         }
+
+        public bool IsNormalized
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return MathHelper.NearEquals(Dot(this, this), 1);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2 Normalize() =>
+            Normalize(this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float Length() =>
+            Length(this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float LengthSquared() =>
+            LengthSquared(this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector2 other) =>
@@ -68,11 +88,7 @@ namespace BandiEngine.Mathematics
             return Equals((Vector2)obj);
         }
 
-        public override int GetHashCode()
-        {
-            var xhash = X.GetHashCode();
-            return ((xhash << 5) + xhash) ^ Y.GetHashCode();
-        }
+        public override int GetHashCode() => MathHelper.CombineHashCodes(X.GetHashCode(), Y.GetHashCode());
 
         public override string ToString()
         {

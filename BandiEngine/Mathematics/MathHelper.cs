@@ -162,6 +162,10 @@ namespace BandiEngine.Mathematics
             return diff <= largest * tolerance;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static int CombineHashCodes(int h1, int h2) =>
+            ((h1 << 5) + h1) ^ h2;
+
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public unsafe static bool UlpNearEquals(float a, float b, float tolerance = ZeroTolerance, int maxUlp = 4)
         //{
