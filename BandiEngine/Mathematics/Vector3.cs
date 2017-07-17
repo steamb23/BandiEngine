@@ -68,10 +68,7 @@ namespace BandiEngine.Mathematics
         public bool IsNormalized
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                return MathHelper.NearEquals(Dot(this, this), 1);
-            }
+            get => MathHelper.NearEquals(Dot(this, this), 1);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,26 +85,17 @@ namespace BandiEngine.Mathematics
             MathHelper.RelativeNearEquals(Y, other.Y) &&
             MathHelper.RelativeNearEquals(Z, other.Z);
 
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Vector3))
-                return false;
-
-            return Equals((Vector3)obj);
-        }
+        public override bool Equals(object obj) =>
+            obj is Vector3 ? Equals((Vector3)obj) : false;
 
         public override int GetHashCode() =>
             MathHelper.CombineHashCodes(MathHelper.CombineHashCodes(X.GetHashCode(), Y.GetHashCode()), Z.GetHashCode());
 
-        public override string ToString()
-        {
-            return ToString(null, CultureInfo.CurrentCulture);
-        }
+        public override string ToString() =>
+            ToString(null, CultureInfo.CurrentCulture);
 
-        public string ToString(string format)
-        {
-            return ToString(format, CultureInfo.CurrentCulture);
-        }
+        public string ToString(string format) =>
+            ToString(format, CultureInfo.CurrentCulture);
 
         public string ToString(string format, IFormatProvider formatProvider)
         {
@@ -123,99 +111,77 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Add(Vector3 vector1, Vector3 vector2)
-        {
-            return new Vector3(
+        public static Vector3 Add(Vector3 vector1, Vector3 vector2) =>
+            new Vector3(
                 vector1.X + vector2.X,
                 vector1.Y + vector2.Y,
                 vector1.Z + vector2.Z);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Add(Vector3 vector, float scala)
-        {
-            return new Vector3(
+        public static Vector3 Add(Vector3 vector, float scala) =>
+            new Vector3(
                 vector.X + scala,
                 vector.Y + scala,
                 vector.Z + scala);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(Vector3 vector1, Vector3 vector2)
-        {
-            return new Vector3(
+        public static Vector3 Subtract(Vector3 vector1, Vector3 vector2) =>
+            new Vector3(
                 vector1.X - vector2.X,
                 vector1.Y - vector2.Y,
                 vector1.Z - vector2.Z);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(Vector3 vector, float scala)
-        {
-            return new Vector3(
+        public static Vector3 Subtract(Vector3 vector, float scala) =>
+            new Vector3(
                 vector.X - scala,
                 vector.Y - scala,
                 vector.Z - scala);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(float scala, Vector3 vector)
-        {
-            return new Vector3(
+        public static Vector3 Subtract(float scala, Vector3 vector) =>
+            new Vector3(
                 scala - vector.X,
                 scala - vector.Y,
                 scala - vector.Z);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Multiply(Vector3 vector1, Vector3 vector2)
-        {
-            return new Vector3(
+        public static Vector3 Multiply(Vector3 vector1, Vector3 vector2) =>
+            new Vector3(
                 vector1.X * vector2.X,
                 vector1.Y * vector2.Y,
                 vector1.Z * vector2.Z);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Multiply(Vector3 vector, float scala)
-        {
-            return new Vector3(
+        public static Vector3 Multiply(Vector3 vector, float scala) =>
+            new Vector3(
                 vector.X * scala,
                 vector.Y * scala,
                 vector.Z * scala);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(Vector3 vector1, Vector3 vector2)
-        {
-            return new Vector3(
+        public static Vector3 Divide(Vector3 vector1, Vector3 vector2) =>
+            new Vector3(
                 vector1.X / vector2.X,
                 vector1.Y / vector1.Y,
                 vector1.Z / vector2.Z);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(Vector3 vector, float scala)
-        {
-            return new Vector3(
+        public static Vector3 Divide(Vector3 vector, float scala) =>
+            new Vector3(
                 vector.X / scala,
                 vector.Y / scala,
                 vector.Y / scala);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(float scala, Vector3 vector)
-        {
-            return new Vector3(
+        public static Vector3 Divide(float scala, Vector3 vector) =>
+            new Vector3(
                 scala / vector.X,
                 scala / vector.Y,
                 scala / vector.Z);
-        }
 
-        public static Vector3 Negate(Vector3 vector)
-        {
-            return new Vector3(-vector.X, -vector.Y, -vector.Z);
-        }
+        public static Vector3 Negate(Vector3 vector) =>
+            new Vector3(-vector.X, -vector.Y, -vector.Z);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Normalize(Vector3 vector)
@@ -227,22 +193,17 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float Dot(Vector3 vector1, Vector3 vector2)
-        {
-            return
+        public static float Dot(Vector3 vector1, Vector3 vector2) =>
                 vector1.X * vector2.X +
                 vector1.Y * vector2.Y +
                 vector1.Z * vector2.Z;
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Cross(Vector3 vector1, Vector3 vector2)
-        {
-            return new Vector3(
+        public static Vector3 Cross(Vector3 vector1, Vector3 vector2) =>
+            new Vector3(
                 vector1.Y * vector2.Z - vector1.Z * vector2.Y,
                 vector1.Z * vector2.X - vector1.X * vector2.Z,
                 vector1.X * vector2.Y - vector1.Y * vector2.X);
-        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Length(Vector3 vector) =>
