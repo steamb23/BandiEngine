@@ -121,7 +121,7 @@ namespace BandiEngine.Mathematics
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 Subtract(Vector2 value1, Vector2 value2) =>
-            new Vector2(value1.X - value2.X, value1.Y + value2.Y);
+            new Vector2(value1.X - value2.X, value1.Y - value2.Y);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 Subtract(Vector2 value1, float value2) =>
