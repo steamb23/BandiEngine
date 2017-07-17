@@ -198,6 +198,7 @@ namespace BandiEngine.Mathematics
         public static Vector2 operator +(Vector2 value) => value;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator -(Vector2 value) => Negate(value);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator ++(Vector2 value) => value + 1f;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator --(Vector2 value) => value - 1f;
