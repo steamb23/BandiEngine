@@ -82,6 +82,7 @@
     <Compile Include="Graphics\OutputDescription.cs" />
     <Compile Include="Mathematics\MathHelper.cs" />
     <Compile Include="Mathematics\Vector2.cs" />
+    <Compile Include="Mathematics\Vector3.cs" />
     <Compile Include="Platforms\Platform.cs" />
     <Compile Include="Platforms\WindowsPlatform.cs" />
     <Compile Include="Graphics\DirectX\Device.cs" />
