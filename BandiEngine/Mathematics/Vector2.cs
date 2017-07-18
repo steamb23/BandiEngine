@@ -214,6 +214,12 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 Sqrt(Vector2 value) =>
+            new Vector2(
+                (float)Math.Sqrt(value.X),
+                (float)Math.Sqrt(value.Y));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearEquals(Vector2 vector1, Vector2 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y);
