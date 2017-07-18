@@ -218,6 +218,24 @@ namespace BandiEngine.Mathematics
             LengthSquared(vector1 - vector2);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 Reflect(Vector3 incident, Vector3 normal) =>
+            incident - 2f * Dot(incident, normal) * normal;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 Refract(Vector3 incident, Vector3 normal, float refractionIndex) => Refract(incident, normal, new Vector3(refractionIndex));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 Refract(Vector3 incident, Vector3 normal, Vector3 refractionIndex)
+        {
+            // Powered by DirectXMath XMVector2RefractV
+            var iDotN = Dot(incident, normal);
+            Vector3 result =
+                1f - refractionIndex * refractionIndex * (1f - iDotN * iDotN);
+            return result < Zero ? Zero :
+                refractionIndex * incident - normal * refractionIndex * (iDotN + Sqrt(result));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Sqrt(Vector3 value) =>
             new Vector3(
                 (float)Math.Sqrt(value.X),

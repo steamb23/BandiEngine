@@ -201,16 +201,10 @@ namespace BandiEngine.Mathematics
         {
             // Powered by DirectXMath XMVector2RefractV
             var iDotN = Dot(incident, normal);
-            float resultY = 1f - iDotN * iDotN;
-            float resultX;
-            resultX = 1f - resultY * refractionIndex.X * refractionIndex.X;
-            resultY = 1f - resultY * refractionIndex.Y * refractionIndex.Y;
-
-            return new Vector2(
-                resultX < 0f ? 0f :
-                refractionIndex.X * incident.X - normal.X * refractionIndex.X * (iDotN + (float)Math.Sqrt(resultX)),
-                resultY < 0f ? 0f :
-                refractionIndex.Y * incident.Y - normal.Y * refractionIndex.Y * (iDotN + (float)Math.Sqrt(resultY)));
+            Vector2 result =
+                1f - refractionIndex * refractionIndex * (1f - iDotN * iDotN);
+            return result < Zero ? Zero :
+                refractionIndex * incident - normal * refractionIndex * (iDotN + Sqrt(result));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
