@@ -70,9 +70,7 @@ namespace BandiEngine.Mathematics
             LengthSquared(this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2 other) =>
-            MathHelper.RelativeNearEquals(X, other.X) &&
-            MathHelper.RelativeNearEquals(Y, other.Y);
+        public bool Equals(Vector2 other) => Equals(this, other);
 
         public override bool Equals(object obj) =>
             obj is Vector2 ? Equals((Vector2)obj) : false;
@@ -191,6 +189,34 @@ namespace BandiEngine.Mathematics
         public static float DistanceSquared(Vector2 vector1, Vector2 vector2) =>
             LengthSquared(vector1 - vector2);
 
+        public static bool NearEquals(Vector2 vector1, Vector2 vector2) =>
+            MathHelper.NearEquals(vector1.X, vector2.X) &&
+            MathHelper.NearEquals(vector1.Y, vector2.Y);
+
+        public static bool RelativeNearEquals(Vector2 vector1, Vector2 vector2) =>
+            MathHelper.RelativeNearEquals(vector1.X, vector2.X) &&
+            MathHelper.RelativeNearEquals(vector1.Y, vector2.Y);
+
+        public static bool Equals(Vector2 vector1, Vector2 vector2) =>
+            vector1.X == vector2.X &&
+            vector1.Y == vector2.Y;
+
+        public static bool Greater(Vector2 vector1, Vector2 vector2) =>
+            vector1.X > vector2.X &&
+            vector1.Y > vector2.Y;
+
+        public static bool Less(Vector2 vector1, Vector2 vector2) =>
+            vector1.X < vector2.X &&
+            vector1.Y < vector2.Y;
+
+        public static bool GreaterOrEquals(Vector2 vector1, Vector2 vector2) =>
+            vector1.X >= vector2.X &&
+            vector1.Y >= vector2.Y;
+
+        public static bool LessOrEquals(Vector2 vector1, Vector2 vector2) =>
+            vector1.X <= vector2.X &&
+            vector1.Y <= vector2.Y;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator +(Vector2 left, Vector2 right) => Add(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -216,9 +242,17 @@ namespace BandiEngine.Mathematics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator /(float left, Vector2 right) => Divide(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector2 left, Vector2 right) => !left.Equals(right);
+        public static bool operator !=(Vector2 left, Vector2 right) => !Equals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector2 left, Vector2 right) => left.Equals(right);
+        public static bool operator ==(Vector2 left, Vector2 right) => Equals(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator >(Vector2 left, Vector2 right) => Greater(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator <(Vector2 left, Vector2 right) => Less(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator >=(Vector2 left, Vector2 right) => GreaterOrEquals(left, right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator <=(Vector2 left, Vector2 right) => LessOrEquals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 operator +(Vector2 value) => value;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
