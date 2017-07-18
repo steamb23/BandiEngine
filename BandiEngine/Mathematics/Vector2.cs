@@ -213,30 +213,37 @@ namespace BandiEngine.Mathematics
                 refractionIndex.Y * incident.Y - normal.Y * refractionIndex.Y * (iDotN + (float)Math.Sqrt(resultY)));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearEquals(Vector2 vector1, Vector2 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RelativeNearEquals(Vector2 vector1, Vector2 vector2) =>
             MathHelper.RelativeNearEquals(vector1.X, vector2.X) &&
             MathHelper.RelativeNearEquals(vector1.Y, vector2.Y);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector2 vector1, Vector2 vector2) =>
             vector1.X == vector2.X &&
             vector1.Y == vector2.Y;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Greater(Vector2 vector1, Vector2 vector2) =>
             vector1.X > vector2.X &&
             vector1.Y > vector2.Y;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Less(Vector2 vector1, Vector2 vector2) =>
             vector1.X < vector2.X &&
             vector1.Y < vector2.Y;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterOrEquals(Vector2 vector1, Vector2 vector2) =>
             vector1.X >= vector2.X &&
             vector1.Y >= vector2.Y;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessOrEquals(Vector2 vector1, Vector2 vector2) =>
             vector1.X <= vector2.X &&
             vector1.Y <= vector2.Y;

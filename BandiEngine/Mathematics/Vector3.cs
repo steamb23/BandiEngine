@@ -217,36 +217,43 @@ namespace BandiEngine.Mathematics
         public static float DistanceSquared(Vector3 vector1, Vector3 vector2) =>
             LengthSquared(vector1 - vector2);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearEquals(Vector3 vector1, Vector3 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y) &&
             MathHelper.NearEquals(vector1.Z, vector2.Z);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RelativeNearEquals(Vector3 vector1, Vector3 vector2) =>
             MathHelper.RelativeNearEquals(vector1.X, vector2.X) &&
             MathHelper.RelativeNearEquals(vector1.Y, vector2.Y) &&
             MathHelper.RelativeNearEquals(vector1.Z, vector2.Z);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector3 vector1, Vector3 vector2) =>
             vector1.X == vector2.X &&
             vector1.Y == vector2.Y &&
             vector1.Z == vector2.Z;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Greater(Vector3 vector1, Vector3 vector2) =>
             vector1.X > vector2.X &&
             vector1.Y > vector2.Y &&
             vector1.Z > vector2.Z;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Less(Vector3 vector1, Vector3 vector2) =>
             vector1.X < vector2.X &&
             vector1.Y < vector2.Y &&
             vector1.Z < vector2.Z;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterOrEquals(Vector3 vector1, Vector3 vector2) =>
             vector1.X >= vector2.X &&
             vector1.Y >= vector2.Y &&
             vector1.Z >= vector2.Z;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessOrEquals(Vector3 vector1, Vector3 vector2) =>
             vector1.X <= vector2.X &&
             vector1.Y <= vector2.Y &&
