@@ -189,6 +189,30 @@ namespace BandiEngine.Mathematics
         public static float DistanceSquared(Vector2 vector1, Vector2 vector2) =>
             LengthSquared(vector1 - vector2);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 Reflect(Vector2 incident, Vector2 normal) =>
+            incident - 2f * Dot(incident, normal) * normal;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 Refract(Vector2 incident, Vector2 normal, float refractionIndex) => Refract(incident, normal, new Vector2(refractionIndex));
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 Refract(Vector2 incident, Vector2 normal, Vector2 refractionIndex)
+        {
+            // Powered by DirectXMath XMVector2RefractV
+            var iDotN = Dot(incident, normal);
+            float resultY = 1f - iDotN * iDotN;
+            float resultX;
+            resultX = 1f - resultY * refractionIndex.X * refractionIndex.X;
+            resultY = 1f - resultY * refractionIndex.Y * refractionIndex.Y;
+
+            return new Vector2(
+                resultX < 0f ? 0f :
+                refractionIndex.X * incident.X - normal.X * refractionIndex.X * (iDotN + (float)Math.Sqrt(resultX)),
+                resultY < 0f ? 0f :
+                refractionIndex.Y * incident.Y - normal.Y * refractionIndex.Y * (iDotN + (float)Math.Sqrt(resultY)));
+        }
+
         public static bool NearEquals(Vector2 vector1, Vector2 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y);
