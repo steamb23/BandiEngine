@@ -236,6 +236,83 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3[] Orthogonalize(params Vector3[] source)
+        {
+            var result = new Vector3[source.Length];
+            Orthogonalize(ref result, source);
+            return result;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3[] Orthonormalize(params Vector3[] source)
+        {
+            var result = new Vector3[source.Length];
+            Orthonormalize(ref result, source);
+            return result;
+        }
+
+        public static void Orthogonalize(ref Vector3[] destination, params Vector3[] source)
+        {
+            //Uses the modified Gram-Schmidt process.
+            //q1 = m1
+            //q2 = m2 - ((q1 ⋅ m2) / (q1 ⋅ q1)) * q1
+            //q3 = m3 - ((q1 ⋅ m3) / (q1 ⋅ q1)) * q1 - ((q2 ⋅ m3) / (q2 ⋅ q2)) * q2
+            //q4 = m4 - ((q1 ⋅ m4) / (q1 ⋅ q1)) * q1 - ((q2 ⋅ m4) / (q2 ⋅ q2)) * q2 - ((q3 ⋅ m4) / (q3 ⋅ q3)) * q3
+            //q5 = ...
+
+            if (source == null)
+                throw new ArgumentNullException("source");
+            if (destination == null)
+                throw new ArgumentNullException("destination");
+            if (destination.Length < source.Length)
+                throw new ArgumentOutOfRangeException("destination", "The destination array must be of same length or larger length than the source array.");
+
+            for (int i = 0; i < source.Length; ++i)
+            {
+                Vector3 newvector = source[i];
+
+                for (int r = 0; r < i; ++r)
+                {
+                    newvector -= (Dot(destination[r], newvector) / Dot(destination[r], destination[r])) * destination[r];
+                }
+
+                destination[i] = newvector;
+            }
+        }
+
+        public static void Orthonormalize(ref Vector3[] destination, params Vector3[] source)
+        {
+            //Uses the modified Gram-Schmidt process.
+            //Because we are making unit vectors, we can optimize the math for orthogonalization
+            //and simplify the projection operation to remove the division.
+            //q1 = m1 / |m1|
+            //q2 = (m2 - (q1 ⋅ m2) * q1) / |m2 - (q1 ⋅ m2) * q1|
+            //q3 = (m3 - (q1 ⋅ m3) * q1 - (q2 ⋅ m3) * q2) / |m3 - (q1 ⋅ m3) * q1 - (q2 ⋅ m3) * q2|
+            //q4 = (m4 - (q1 ⋅ m4) * q1 - (q2 ⋅ m4) * q2 - (q3 ⋅ m4) * q3) / |m4 - (q1 ⋅ m4) * q1 - (q2 ⋅ m4) * q2 - (q3 ⋅ m4) * q3|
+            //q5 = ...
+
+            if (source == null)
+                throw new ArgumentNullException("source");
+            if (destination == null)
+                throw new ArgumentNullException("destination");
+            if (destination.Length < source.Length)
+                throw new ArgumentOutOfRangeException("destination", "The destination array must be of same length or larger length than the source array.");
+
+            for (int i = 0; i < source.Length; ++i)
+            {
+                Vector3 newvector = source[i];
+
+                for (int r = 0; r < i; ++r)
+                {
+                    newvector -= Dot(destination[r], newvector) * destination[r];
+                }
+
+                Normalize(newvector);
+                destination[i] = newvector;
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3 Sqrt(Vector3 value) =>
             new Vector3(
                 (float)Math.Sqrt(value.X),
