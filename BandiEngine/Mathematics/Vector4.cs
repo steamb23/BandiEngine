@@ -31,51 +31,57 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Mathematics
 {
-    public struct Vector3 : IEquatable<Vector3>
+    public struct Vector4 : IEquatable<Vector3>
     {
-        public static readonly Vector3 UnitX = new Vector3(1f, 0f, 0f);
-        public static readonly Vector3 UnitY = new Vector3(0f, 1f, 0f);
-        public static readonly Vector3 UnitZ = new Vector3(0f, 0f, 1f);
-        public static readonly Vector3 Zero = new Vector3();
-        public static readonly Vector3 Up = UnitY;
-        public static readonly Vector3 Down = -UnitY;
-        public static readonly Vector3 Left = -UnitX;
-        public static readonly Vector3 Right = UnitX;
-        public static readonly Vector3 Foward = UnitZ;
-        public static readonly Vector3 Backward = -UnitZ;
-        public static readonly Vector3 One = new Vector3(1f);
+        public static readonly Vector4 UnitX = new Vector4(1f, 0f, 0f, 0f);
+        public static readonly Vector4 UnitY = new Vector4(0f, 1f, 0f, 0f);
+        public static readonly Vector4 UnitZ = new Vector4(0f, 0f, 1f, 0f);
+        public static readonly Vector4 UnitW = new Vector4(0f, 0f, 0f, 1f);
+        public static readonly Vector4 Zero = new Vector4();
+        public static readonly Vector4 One = new Vector4(1);
 
         public float X;
         public float Y;
         public float Z;
+        public float W;
 
-        public Vector3(float scala)
+        public Vector4(float scala)
         {
-            X = Y = Z = scala;
+            X = Y = Z = W = scala;
         }
 
-        public Vector3(float x, float y, float z)
+        public Vector4(float x, float y, float z, float w)
         {
             X = x;
             Y = y;
             Z = z;
+            W = w;
         }
 
-        public Vector3(Vector2 value, float z = 0)
+        public Vector4(Vector3 value, float w = 0)
+        {
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = w;
+        }
+
+        public Vector4(Vector2 value, float z = 0, float w = 0)
         {
             X = value.X;
             Y = value.Y;
             Z = z;
+            W = w;
         }
 
         public bool IsNormalized => MathHelper.NearEquals(Dot(this, this), 1);
 
         public float Length() =>
             Length(this);
-        
+
         public float LengthSquared() =>
             LengthSquared(this);
-        
+
         public bool Equals(Vector3 other) => Equals(this, other);
 
         public override bool Equals(object obj) =>
@@ -84,7 +90,7 @@ namespace BandiEngine.Mathematics
         public override int GetHashCode() =>
             MathHelper.CombineHashCodes(
                 MathHelper.CombineHashCodes(
-                    X.GetHashCode(), Y.GetHashCode()), Z.GetHashCode());
+                    MathHelper.CombineHashCodes(X.GetHashCode(), Y.GetHashCode()), Z.GetHashCode()), W.GetHashCode());
 
         public override string ToString() =>
             ToString(null, CultureInfo.CurrentCulture);
@@ -101,85 +107,97 @@ namespace BandiEngine.Mathematics
             sb.Append(this.Y.ToString(format, formatProvider));
             sb.Append(", ");
             sb.Append(this.Z.ToString(format, formatProvider));
+            sb.Append(", ");
+            sb.Append(this.W.ToString(format, formatProvider));
             sb.Append('>');
             return sb.ToString();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Add(Vector3 vector1, Vector3 vector2) =>
-            new Vector3(
+        public static Vector4 Add(Vector4 vector1, Vector4 vector2) =>
+            new Vector4(
                 vector1.X + vector2.X,
                 vector1.Y + vector2.Y,
-                vector1.Z + vector2.Z);
+                vector1.Z + vector2.Z,
+                vector1.W + vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Add(Vector3 vector, float scala) =>
-            new Vector3(
+        public static Vector4 Add(Vector4 vector, float scala) =>
+            new Vector4(
                 vector.X + scala,
                 vector.Y + scala,
-                vector.Z + scala);
+                vector.Z + scala,
+                vector.W + scala);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(Vector3 vector1, Vector3 vector2) =>
-            new Vector3(
+        public static Vector4 Subtract(Vector4 vector1, Vector4 vector2) =>
+            new Vector4(
                 vector1.X - vector2.X,
                 vector1.Y - vector2.Y,
-                vector1.Z - vector2.Z);
+                vector1.Z - vector2.Z,
+                vector1.W - vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(Vector3 vector, float scala) =>
-            new Vector3(
+        public static Vector4 Subtract(Vector4 vector, float scala) =>
+            new Vector4(
                 vector.X - scala,
                 vector.Y - scala,
-                vector.Z - scala);
+                vector.Z - scala,
+                vector.W - scala);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Subtract(float scala, Vector3 vector) =>
-            new Vector3(
+        public static Vector4 Subtract(float scala, Vector4 vector) =>
+            new Vector4(
                 scala - vector.X,
                 scala - vector.Y,
-                scala - vector.Z);
+                scala - vector.Z,
+                scala - vector.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Multiply(Vector3 vector1, Vector3 vector2) =>
-            new Vector3(
+        public static Vector4 Multiply(Vector4 vector1, Vector4 vector2) =>
+            new Vector4(
                 vector1.X * vector2.X,
                 vector1.Y * vector2.Y,
-                vector1.Z * vector2.Z);
+                vector1.Z * vector2.Z,
+                vector1.W * vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Multiply(Vector3 vector, float scala) =>
-            new Vector3(
+        public static Vector4 Multiply(Vector4 vector, float scala) =>
+            new Vector4(
                 vector.X * scala,
                 vector.Y * scala,
-                vector.Z * scala);
+                vector.Z * scala,
+                vector.W + scala);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(Vector3 vector1, Vector3 vector2) =>
-            new Vector3(
+        public static Vector4 Divide(Vector4 vector1, Vector4 vector2) =>
+            new Vector4(
                 vector1.X / vector2.X,
                 vector1.Y / vector2.Y,
-                vector1.Z / vector2.Z);
+                vector1.Z / vector2.Z,
+                vector1.W / vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(Vector3 vector, float scala) =>
-            new Vector3(
+        public static Vector4 Divide(Vector4 vector, float scala) =>
+            new Vector4(
                 vector.X / scala,
                 vector.Y / scala,
-                vector.Y / scala);
+                vector.Y / scala,
+                vector.W / scala);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Divide(float scala, Vector3 vector) =>
-            new Vector3(
+        public static Vector4 Divide(float scala, Vector4 vector) =>
+            new Vector4(
                 scala / vector.X,
                 scala / vector.Y,
-                scala / vector.Z);
+                scala / vector.Z,
+                scala / vector.W);
 
-        public static Vector3 Negate(Vector3 vector) =>
-            new Vector3(-vector.X, -vector.Y, -vector.Z);
+        public static Vector4 Negate(Vector4 vector) =>
+            new Vector4(-vector.X, -vector.Y, -vector.Z, -vector.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Normalize(Vector3 vector)
+        public static Vector4 Normalize(Vector4 vector)
         {
             var length = Length(vector);
             return
@@ -188,68 +206,62 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float Dot(Vector3 vector1, Vector3 vector2) =>
+        public static float Dot(Vector4 vector1, Vector4 vector2) =>
                 vector1.X * vector2.X +
                 vector1.Y * vector2.Y +
-                vector1.Z * vector2.Z;
+                vector1.Z * vector2.Z +
+                vector1.W * vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Cross(Vector3 vector1, Vector3 vector2) =>
-            new Vector3(
-                vector1.Y * vector2.Z - vector1.Z * vector2.Y,
-                vector1.Z * vector2.X - vector1.X * vector2.Z,
-                vector1.X * vector2.Y - vector1.Y * vector2.X);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float Length(Vector3 vector) =>
+        public static float Length(Vector4 vector) =>
             (float)Math.Sqrt(LengthSquared(vector));
 
-        public static float LengthSquared(Vector3 vector) =>
+        public static float LengthSquared(Vector4 vector) =>
             Dot(vector, vector);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float Distance(Vector3 vector1, Vector3 vector2) =>
+        public static float Distance(Vector4 vector1, Vector4 vector2) =>
             Length(vector1 - vector2);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float DistanceSquared(Vector3 vector1, Vector3 vector2) =>
+        public static float DistanceSquared(Vector4 vector1, Vector4 vector2) =>
             LengthSquared(vector1 - vector2);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Reflect(Vector3 incident, Vector3 normal) =>
+        public static Vector4 Reflect(Vector4 incident, Vector4 normal) =>
             incident - 2f * Dot(incident, normal) * normal;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Refract(Vector3 incident, Vector3 normal, float refractionIndex) => Refract(incident, normal, new Vector3(refractionIndex));
+        public static Vector4 Refract(Vector4 incident, Vector4 normal, float refractionIndex) => Refract(incident, normal, new Vector4(refractionIndex));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Refract(Vector3 incident, Vector3 normal, Vector3 refractionIndex)
+        public static Vector4 Refract(Vector4 incident, Vector4 normal, Vector4 refractionIndex)
         {
             // Powered by DirectXMath XMVector2RefractV
             var iDotN = Dot(incident, normal);
-            Vector3 result =
+            Vector4 result =
                 1f - refractionIndex * refractionIndex * (1f - iDotN * iDotN);
             return result < Zero ? Zero :
                 refractionIndex * incident - normal * refractionIndex * (iDotN + Sqrt(result));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3[] Orthogonalize(params Vector3[] source)
+        public static Vector4[] Orthogonalize(params Vector4[] source)
         {
-            var result = new Vector3[source.Length];
+            var result = new Vector4[source.Length];
             Orthogonalize(ref result, source);
             return result;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3[] Orthonormalize(params Vector3[] source)
+        public static Vector4[] Orthonormalize(params Vector4[] source)
         {
-            var result = new Vector3[source.Length];
+            var result = new Vector4[source.Length];
             Orthonormalize(ref result, source);
             return result;
         }
 
-        public static void Orthogonalize(ref Vector3[] destination, params Vector3[] source)
+        public static void Orthogonalize(ref Vector4[] destination, params Vector4[] source)
         {
             //Uses the modified Gram-Schmidt process.
             //q1 = m1
@@ -267,7 +279,7 @@ namespace BandiEngine.Mathematics
 
             for (int i = 0; i < source.Length; ++i)
             {
-                Vector3 newvector = source[i];
+                Vector4 newvector = source[i];
 
                 for (int r = 0; r < i; ++r)
                 {
@@ -278,7 +290,7 @@ namespace BandiEngine.Mathematics
             }
         }
 
-        public static void Orthonormalize(ref Vector3[] destination, params Vector3[] source)
+        public static void Orthonormalize(ref Vector4[] destination, params Vector4[] source)
         {
             //Uses the modified Gram-Schmidt process.
             //Because we are making unit vectors, we can optimize the math for orthogonalization
@@ -298,7 +310,7 @@ namespace BandiEngine.Mathematics
 
             for (int i = 0; i < source.Length; ++i)
             {
-                Vector3 newvector = source[i];
+                Vector4 newvector = source[i];
 
                 for (int r = 0; r < i; ++r)
                 {
@@ -311,97 +323,98 @@ namespace BandiEngine.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 Sqrt(Vector3 value) =>
-            new Vector3(
+        public static Vector4 Sqrt(Vector4 value) =>
+            new Vector4(
                 (float)Math.Sqrt(value.X),
                 (float)Math.Sqrt(value.Y),
-                (float)Math.Sqrt(value.Z));
+                (float)Math.Sqrt(value.Z),
+                (float)Math.Sqrt(value.W));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool NearEquals(Vector3 vector1, Vector3 vector2) =>
+        public static bool NearEquals(Vector4 vector1, Vector4 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y) &&
             MathHelper.NearEquals(vector1.Z, vector2.Z);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RelativeNearEquals(Vector3 vector1, Vector3 vector2) =>
+        public static bool RelativeNearEquals(Vector4 vector1, Vector4 vector2) =>
             MathHelper.RelativeNearEquals(vector1.X, vector2.X) &&
             MathHelper.RelativeNearEquals(vector1.Y, vector2.Y) &&
             MathHelper.RelativeNearEquals(vector1.Z, vector2.Z);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Vector3 vector1, Vector3 vector2) =>
+        public static bool Equals(Vector4 vector1, Vector4 vector2) =>
             vector1.X == vector2.X &&
             vector1.Y == vector2.Y &&
             vector1.Z == vector2.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Greater(Vector3 vector1, Vector3 vector2) =>
+        public static bool Greater(Vector4 vector1, Vector4 vector2) =>
             vector1.X > vector2.X &&
             vector1.Y > vector2.Y &&
             vector1.Z > vector2.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Less(Vector3 vector1, Vector3 vector2) =>
+        public static bool Less(Vector4 vector1, Vector4 vector2) =>
             vector1.X < vector2.X &&
             vector1.Y < vector2.Y &&
             vector1.Z < vector2.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool GreaterOrEquals(Vector3 vector1, Vector3 vector2) =>
+        public static bool GreaterOrEquals(Vector4 vector1, Vector4 vector2) =>
             vector1.X >= vector2.X &&
             vector1.Y >= vector2.Y &&
             vector1.Z >= vector2.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LessOrEquals(Vector3 vector1, Vector3 vector2) =>
+        public static bool LessOrEquals(Vector4 vector1, Vector4 vector2) =>
             vector1.X <= vector2.X &&
             vector1.Y <= vector2.Y &&
             vector1.Z <= vector2.Z;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator +(Vector3 left, Vector3 right) => Add(left, right);
+        public static Vector4 operator +(Vector4 left, Vector4 right) => Add(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator +(Vector3 left, float right) => Add(left, right);
+        public static Vector4 operator +(Vector4 left, float right) => Add(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator +(float left, Vector3 right) => Add(right, left);
+        public static Vector4 operator +(float left, Vector4 right) => Add(right, left);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator -(Vector3 left, Vector3 right) => Subtract(left, right);
+        public static Vector4 operator -(Vector4 left, Vector4 right) => Subtract(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator -(Vector3 left, float right) => Subtract(left, right);
+        public static Vector4 operator -(Vector4 left, float right) => Subtract(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator -(float left, Vector3 right) => Subtract(left, right);
+        public static Vector4 operator -(float left, Vector4 right) => Subtract(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator *(Vector3 left, Vector3 right) => Multiply(left, right);
+        public static Vector4 operator *(Vector4 left, Vector4 right) => Multiply(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator *(Vector3 left, float right) => Multiply(left, right);
+        public static Vector4 operator *(Vector4 left, float right) => Multiply(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator *(float left, Vector3 right) => Multiply(right, left);
+        public static Vector4 operator *(float left, Vector4 right) => Multiply(right, left);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator /(Vector3 left, Vector3 right) => Divide(left, right);
+        public static Vector4 operator /(Vector4 left, Vector4 right) => Divide(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator /(Vector3 left, float right) => Divide(left, right);
+        public static Vector4 operator /(Vector4 left, float right) => Divide(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator /(float left, Vector3 right) => Divide(left, right);
+        public static Vector4 operator /(float left, Vector4 right) => Divide(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector3 left, Vector3 right) => !Equals(left, right);
+        public static bool operator !=(Vector4 left, Vector4 right) => !Equals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector3 left, Vector3 right) => Equals(left, right);
+        public static bool operator ==(Vector4 left, Vector4 right) => Equals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >(Vector3 left, Vector3 right) => Greater(left, right);
+        public static bool operator >(Vector4 left, Vector4 right) => Greater(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <(Vector3 left, Vector3 right) => Less(left, right);
+        public static bool operator <(Vector4 left, Vector4 right) => Less(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator >=(Vector3 left, Vector3 right) => GreaterOrEquals(left, right);
+        public static bool operator >=(Vector4 left, Vector4 right) => GreaterOrEquals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator <=(Vector3 left, Vector3 right) => LessOrEquals(left, right);
+        public static bool operator <=(Vector4 left, Vector4 right) => LessOrEquals(left, right);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator +(Vector3 value) => value;
+        public static Vector4 operator +(Vector4 value) => value;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator -(Vector3 value) => Negate(value);
+        public static Vector4 operator -(Vector4 value) => Negate(value);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator ++(Vector3 value) => value + 1f;
+        public static Vector4 operator ++(Vector4 value) => value + 1f;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3 operator --(Vector3 value) => value - 1f;
+        public static Vector4 operator --(Vector4 value) => value - 1f;
     }
 }

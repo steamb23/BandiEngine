@@ -34,11 +34,13 @@ namespace BandiEngine.Mathematics
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vector2 : IEquatable<Vector2>, IFormattable
     {
+        public static readonly Vector2 UnitX = new Vector2(1f, 0f);
+        public static readonly Vector2 UnitY = new Vector2(0f, 1f);
         public static readonly Vector2 Zero = new Vector2();
-        public static readonly Vector2 Up = new Vector2(0f, 1f);
-        public static readonly Vector2 Down = new Vector2(0f, -1f);
-        public static readonly Vector2 Left = new Vector2(-1f, 0f);
-        public static readonly Vector2 Right = new Vector2(1f, 0f);
+        public static readonly Vector2 Up = UnitY;
+        public static readonly Vector2 Down = -UnitY;
+        public static readonly Vector2 Left = -UnitX;
+        public static readonly Vector2 Right = UnitX;
         public static readonly Vector2 One = new Vector2(1f);
 
         public float X;
@@ -57,19 +59,15 @@ namespace BandiEngine.Mathematics
 
         public bool IsNormalized
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => MathHelper.NearEquals(Dot(this, this), 1);
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        
         public float Length() =>
             Length(this);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        
         public float LengthSquared() =>
             LengthSquared(this);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        
         public bool Equals(Vector2 other) => Equals(this, other);
 
         public override bool Equals(object obj) =>
@@ -141,7 +139,7 @@ namespace BandiEngine.Mathematics
         public static Vector2 Divide(Vector2 vector1, Vector2 vector2) =>
             new Vector2(
                 vector1.X / vector2.X,
-                vector1.Y / vector1.Y);
+                vector1.Y / vector2.Y);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 Divide(Vector2 vector, float scala) =>
