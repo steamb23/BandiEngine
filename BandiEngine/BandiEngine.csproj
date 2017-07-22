@@ -82,6 +82,7 @@
     <Compile Include="Graphics\OutputDescription.cs" />
     <Compile Include="Mathematics\MathHelper.cs" />
     <Compile Include="Mathematics\Matrix.cs" />
+    <Compile Include="Mathematics\Rectangle.cs" />
     <Compile Include="Mathematics\Vector2.cs" />
     <Compile Include="Mathematics\Vector3.cs" />
     <Compile Include="Mathematics\Vector4.cs" />
