@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 
 namespace BandiEngine.Mathematics
 {
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vector3 : IEquatable<Vector3>
     {
         public static readonly Vector3 UnitX = new Vector3(1f, 0f, 0f);
