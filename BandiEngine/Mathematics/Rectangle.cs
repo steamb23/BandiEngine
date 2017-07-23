@@ -32,7 +32,7 @@ using System.Threading.Tasks;
 namespace BandiEngine.Mathematics
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct Rectangle
+    public struct Rectangle : IEquatable<Rectangle>
     {
         public int Left;
         public int Top;
@@ -55,6 +55,12 @@ namespace BandiEngine.Mathematics
             Top = Bottom = y;
         }
 
+        public Rectangle(int length)
+        {
+            Left = Top = 0;
+            Right = Bottom = 0;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -69,20 +75,6 @@ namespace BandiEngine.Mathematics
             Top = y;
             Right = x + width;
             Bottom = y + height;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="isExtended">더미 매개 변수입니다.</param>
-        public Rectangle(int width, int height, bool isExtended)
-        {
-            Left = width / 2;
-            Top = height / 2;
-            Right = width * 2;
-            Bottom = height * 2;
         }
 
         public int X
@@ -117,10 +109,12 @@ namespace BandiEngine.Mathematics
             set => Bottom = Top + value;
         }
 
+        public int Area => Width * Height;
+
         public bool IsZero =>
             (Left == 0) && (Top == 0) && (Right == 0) && (Bottom == 0);
 
-        public void Offset(int x,int y)
+        public void Offset(int x, int y)
         {
             X += x;
             Y += y;
@@ -148,12 +142,41 @@ namespace BandiEngine.Mathematics
         public bool Contains(Rectangle value) =>
             (Left <= value.Left) && (Right <= value.Right) && (Top <= value.Top) && (Bottom <= value.Bottom);
 
-        public bool Intersects(Rectangle value)=>
+        public bool Intersects(Rectangle value) =>
             (value.Left < Right) && (value.Right > Left) && (value.Top < Bottom) && (value.Bottom > Top);
 
-        public static Rectangle Intersect(Rectangle value1, Rectangle value2)
-        {
+        public static Rectangle Intersect(Rectangle value1, Rectangle value2) =>
+            new Rectangle(
+                Math.Max(value1.Left, value2.Left),
+                Math.Max(value1.Top, value1.Top),
+                Math.Min(value1.Right, value2.Right),
+                Math.Min(value1.Bottom, value2.Bottom));
 
-        }
+        public static Rectangle Union(Rectangle value1, Rectangle value2) =>
+            new Rectangle(
+                Math.Min(value1.Left, value2.Left),
+                Math.Min(value1.Top, value1.Top),
+                Math.Max(value1.Right, value2.Right),
+                Math.Max(value1.Bottom, value2.Bottom));
+
+        public override bool Equals(object obj) =>
+            obj is Rectangle ? Equals((Rectangle)obj) : false;
+
+        public bool Equals(Rectangle other) => Equals(this, other);
+
+        public override int GetHashCode() =>
+            MathHelper.CombineHashCodes(
+                MathHelper.CombineHashCodes(
+                    MathHelper.CombineHashCodes(Left, Top), Right), Bottom);
+
+        public static bool Equals(Rectangle value1, Rectangle value2) =>
+            value1.Left == value2.Left &&
+            value1.Top == value2.Top &&
+            value1.Right == value2.Right &&
+            value1.Bottom == value2.Bottom;
+
+        public static bool operator ==(Rectangle left, Rectangle right) => Equals(left, right);
+
+        public static bool operator !=(Rectangle left, Rectangle right) => !Equals(left, right);
     }
 }
