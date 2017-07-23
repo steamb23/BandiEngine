@@ -335,43 +335,50 @@ namespace BandiEngine.Mathematics
         public static bool NearEquals(Vector4 vector1, Vector4 vector2) =>
             MathHelper.NearEquals(vector1.X, vector2.X) &&
             MathHelper.NearEquals(vector1.Y, vector2.Y) &&
-            MathHelper.NearEquals(vector1.Z, vector2.Z);
+            MathHelper.NearEquals(vector1.Z, vector2.Z) &&
+            MathHelper.NearEquals(vector1.W, vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool RelativeNearEquals(Vector4 vector1, Vector4 vector2) =>
             MathHelper.RelativeNearEquals(vector1.X, vector2.X) &&
             MathHelper.RelativeNearEquals(vector1.Y, vector2.Y) &&
-            MathHelper.RelativeNearEquals(vector1.Z, vector2.Z);
+            MathHelper.RelativeNearEquals(vector1.Z, vector2.Z) &&
+            MathHelper.RelativeNearEquals(vector1.W, vector2.W);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector4 vector1, Vector4 vector2) =>
             vector1.X == vector2.X &&
             vector1.Y == vector2.Y &&
-            vector1.Z == vector2.Z;
+            vector1.Z == vector2.Z &&
+            vector1.W == vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Greater(Vector4 vector1, Vector4 vector2) =>
             vector1.X > vector2.X &&
             vector1.Y > vector2.Y &&
-            vector1.Z > vector2.Z;
+            vector1.Z > vector2.Z &&
+            vector1.W > vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Less(Vector4 vector1, Vector4 vector2) =>
             vector1.X < vector2.X &&
             vector1.Y < vector2.Y &&
-            vector1.Z < vector2.Z;
+            vector1.Z < vector2.Z &&
+            vector1.W < vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterOrEquals(Vector4 vector1, Vector4 vector2) =>
             vector1.X >= vector2.X &&
             vector1.Y >= vector2.Y &&
-            vector1.Z >= vector2.Z;
+            vector1.Z >= vector2.Z &&
+            vector1.W >= vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessOrEquals(Vector4 vector1, Vector4 vector2) =>
             vector1.X <= vector2.X &&
             vector1.Y <= vector2.Y &&
-            vector1.Z <= vector2.Z;
+            vector1.Z <= vector2.Z &&
+            vector1.W <= vector2.W;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4 operator +(Vector4 left, Vector4 right) => Add(left, right);
